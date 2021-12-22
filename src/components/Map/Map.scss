@@ -1,0 +1,39 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+
+.map {
+    position: relative;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: rem(100) 1fr;
+    overflow: hidden;
+    &__header {
+        background: $black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: rem(20) rem(50) rem(20) rem(27);
+        color: $white;
+    }
+    &__menu {
+        @include list-reset;
+        display: flex;
+    }
+    &__item {
+        margin-left: rem(35);
+    }
+    &__link {
+        @include button-reset;
+        transition: all 0.3s;
+        &--active {
+            color: $orange;
+        }
+        &:hover {
+            color: $orange
+        }
+    }
+    &__litmap {
+        border: none;
+    }
+}

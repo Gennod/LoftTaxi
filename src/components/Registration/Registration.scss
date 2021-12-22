@@ -1,0 +1,63 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+
+.registration {
+    z-index: 2;
+    background: $white;
+    box-shadow: 0 0 rem(0) rgba(0, 0, 0, 0.1);
+    border-radius: rem(20);
+    padding: rem(55) rem(112);
+    text-align: right;
+    &__title {
+        margin-top: 0;
+        margin-bottom: rem(32);
+        text-align: center;
+        font-size: rem($fz-title);
+    }
+    &__input {
+        border: none;
+        border-bottom: 2px solid $gray;
+        outline: none;
+        padding: rem(11);
+        padding-left: 0;
+        font-size: rem($fz-text);
+        font-weight: $regular;
+        color: $gray-dark;
+        transition: .3s all;
+        &:focus {
+            color: $black;
+            border-bottom: 2px solid $gray-dark;
+        }
+    }
+    &__label {
+        font-size: rem($fz-label);
+        font-weight: $bold;
+        margin-top: rem(25);
+        text-align: left;
+    }
+    &__inputs {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    &__button {
+        @include button-reset;
+        @include push--auto;
+        display: block;
+        margin-top: rem(46);
+        padding: rem(16) rem(140);
+        background: $orange;
+        border-radius: rem(70);
+    }
+    &__new {
+        text-align: center;
+        margin-top: rem(33);
+        font-size: rem($fz-label);
+        font-weight: $regular;
+    }
+    &__new-btn {
+        @include button-reset;
+        color: $orange
+    }
+}

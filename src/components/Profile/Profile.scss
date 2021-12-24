@@ -1,0 +1,14 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.profile {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 rem(10) rem(20) rem(-5) rgba(0, 0, 0, 0.1);
+  border-radius: rem(10);
+  width: rem(800);
+  height: rem(588);
+  background: $white;
+}

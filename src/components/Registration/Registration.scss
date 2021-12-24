@@ -17,7 +17,7 @@
     }
     &__input {
         border: none;
-        border-bottom: 2px solid $gray;
+        border-bottom: rem(2) solid $gray;
         outline: none;
         padding: rem(11);
         padding-left: 0;

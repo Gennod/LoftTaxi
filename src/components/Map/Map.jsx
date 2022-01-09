@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 
 import Profile from "../Profile/Profile";
 
@@ -6,14 +6,22 @@ import logoSecond from "../../assets/img/loft-logo.svg";
 
 import "./Map.scss";
 
-
 class Map extends Component {
+    ref = React.createRef();
+
     state = {
         currentPage: null
     }
 
+    
     setCurrentPage = (page) => {
         this.setState({currentPage: page});
+    }
+
+    componentDidMount() {
+        const elem = this.ref.current;
+
+        console.log(elem);
     }
 
     render() {
@@ -25,17 +33,17 @@ class Map extends Component {
                     </div>
                     <ul className="map__menu">
                         <li className="map__item">
-                            <button onClick={(e) => {this.setCurrentPage(null)}} className="map__link map__link--active" type="button">
+                            <button onClick={() => {this.setCurrentPage(null)}} className="map__link map__link--active" type="button">
                                 Карта
                             </button>
                         </li>
                         <li className="map__item">
-                            <button onClick={(e) => {this.setCurrentPage("profile")}} className="map__link" type="button">
+                            <button onClick={() => {this.setCurrentPage("profile")}} className="map__link" type="button">
                                 Профиль
                             </button>
                         </li>
                         <li className="map__item">
-                            <button onClick={(e) => {this.props.setCurrentPage("header")}} className="map__link" type="button">
+                            <button onClick={() => {this.props.setCurrentPage("header")}} className="map__link" type="button">
                                 Выйти
                             </button>
                         </li>
@@ -43,6 +51,7 @@ class Map extends Component {
                 </div>
                 <div className="map__map">
                     <iframe
+                        ref={this.ref}
                         className="map__litmap"
                         width="100%"
                         height="100%"

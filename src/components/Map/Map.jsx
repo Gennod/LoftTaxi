@@ -20,7 +20,6 @@ class Map extends Component {
 
     componentDidMount() {
         const elem = this.ref.current;
-
         console.log(elem);
     }
 

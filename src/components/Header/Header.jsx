@@ -21,7 +21,7 @@ class Header extends Component {
 
   pagesList = () => {
     return {
-      login: <Login />,
+      login: <Login setCurrentPage={this.setCurrentPage}/>,
       registration: <Registration setCurrentPage={this.setCurrentPage} />
     }
   }
@@ -32,6 +32,7 @@ class Header extends Component {
     } else {
       this.setState({ currentPage: page });
     }
+
   }
 
   render() {

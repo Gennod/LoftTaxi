@@ -1,6 +1,6 @@
 import "./Registration.scss";
 
-const Registration = (props) => {
+const Registration = ({setCurrentPage}) => {
     return (
         <div className="registration">
             <h2 className="registration__title">Регистрация</h2>
@@ -12,8 +12,8 @@ const Registration = (props) => {
                     <label className="registration__label" htmlFor="password">Придумайте пароль*</label>
                     <input className="registration__input" id="password" type="password" name="password" placeholder="*********" />
                 </div>
-                <button onClick={() => props.setCurrentPage("map")} className="registration__button" type="submit">Зарегистрироваться</button>
-                <div className="registration__new">Уже зарегистрированы? <button onClick={() => props.setCurrentPage("login")} className="login__new-btn" type="submit">Войти</button></div>
+                <button onClick={() => setCurrentPage("map")} className="registration__button" type="submit">Зарегистрироваться</button>
+                <div className="registration__new">Уже зарегистрированы? <button onClick={() => setCurrentPage("login")} className="login__new-btn" type="submit">Войти</button></div>
         </div>
     )
 }

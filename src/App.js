@@ -18,11 +18,14 @@ class App extends Component {
     };
 
     login = (page = "header", email, password) => {
-        if (email === "example@mail.ru" && password === "123" && page !== "header") {
+        if (
+            email === "example@mail.ru" &&
+            password === "123" &&
+            page !== "header"
+        ) {
             this.setState({
                 isLoggedIn: true,
             });
-            console.log('hello')
             this.setCurrentPage(page);
         }
     };
@@ -38,7 +41,10 @@ class App extends Component {
             map: <Map setCurrentPage={this.setCurrentPage} />,
             header: (
                 <LoginContext.Provider value={this.login}>
-                    <Header />
+                    <Header
+                        currentPage={this.state.currentPage}
+                        setCurrentPage={this.setCurrentPage}
+                    />
                 </LoginContext.Provider>
             ),
         };
@@ -46,6 +52,11 @@ class App extends Component {
 
     setCurrentPage = (page) => {
         this.setState({ currentPage: page });
+        if (page === "header") {
+            this.setState({ isLoggedIn: false });
+        } else {
+            this.setState({ isLoggedIn: true });
+        }
     };
 
     render() {

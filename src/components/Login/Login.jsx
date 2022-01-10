@@ -3,7 +3,7 @@ import LoginContext from "./LoginContext";
 
 import "./Login.scss";
 
-const Login = () => {
+const Login = ({setCurrentPage}) => {
     const login = useContext(LoginContext);
 
     let email = "";
@@ -63,7 +63,10 @@ const Login = () => {
             <div className="login__new">
                 Новый пользователь?{" "}
                 <button
-                    onClick={(e) => onLogin(e, "registration")}
+                    onClick={(e) => {
+                        onLogin(e, "registration");
+                        setCurrentPage("registration");
+                    }}
                     className="login__new-btn"
                     type="submit"
                 >

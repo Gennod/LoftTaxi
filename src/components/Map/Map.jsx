@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { NavLink, Route, Routes } from "react-router-dom";
 
 import Profile from "../Profile/Profile";
 
@@ -8,15 +9,6 @@ import "./Map.scss";
 
 class Map extends Component {
     ref = React.createRef();
-
-    state = {
-        currentPage: null
-    }
-
-    
-    setCurrentPage = (page) => {
-        this.setState({currentPage: page});
-    }
 
     componentDidMount() {
         const elem = this.ref.current;
@@ -32,19 +24,28 @@ class Map extends Component {
                     </div>
                     <ul className="map__menu">
                         <li className="map__item">
-                            <button onClick={() => {this.setCurrentPage(null)}} className="map__link map__link--active" type="button">
+                            <NavLink
+                                to="/map"
+                                className="map__link map__link--active"
+                            >
                                 Карта
-                            </button>
+                            </NavLink>
                         </li>
                         <li className="map__item">
-                            <button onClick={() => {this.setCurrentPage("profile")}} className="map__link" type="button">
+                            <NavLink
+                                to="/profile"
+                                className="map__link"
+                            >
                                 Профиль
-                            </button>
+                            </NavLink>
                         </li>
                         <li className="map__item">
-                            <button onClick={() => {this.props.setCurrentPage("header")}} className="map__link" type="button">
+                            <NavLink
+                                to="/"
+                                className="map__link"
+                            >
                                 Выйти
-                            </button>
+                            </NavLink>
                         </li>
                     </ul>
                 </div>
@@ -57,14 +58,15 @@ class Map extends Component {
                         src="https://api.mapbox.com/styles/v1/gennod/ckx7sz23b173p15nqwbwkckpb.html?title=false&access_token=pk.eyJ1IjoiZ2Vubm9kIiwiYSI6ImNreDdzd2N6NDJ5YWcybmx5N21pY2xrNXAifQ.SOKO1q5UlOhYCDEs2DFtPQ&zoomwheel=true#10.77/51.7789/55.1494"
                         title="Navigation"
                     ></iframe>
-                    <div className="map__order">
-                        
-                    </div>
-                    {this.state.currentPage && <Profile />}
+                    <div className="map__order"></div>
+                    <Routes>
+                        <Route path="/profile" element={<Profile />}/>
+                    </Routes>
+
                 </div>
             </div>
         );
     }
-};
+}
 
 export default Map;

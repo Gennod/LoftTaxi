@@ -25,6 +25,7 @@
     &__link {
         @include button-reset;
         transition: all 0.3s;
+        text-decoration: none;
         &--active {
             color: $orange;
         }

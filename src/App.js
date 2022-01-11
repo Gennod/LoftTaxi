@@ -1,33 +1,21 @@
 import { Component } from "react";
-import Map from "./components/Map/Map";
-import Header from "./components/Header/Header";
-import LoginContext from "./components/Login/LoginContext";
+import { Routes, Route } from "react-router";
 
-import PropTypes from "prop-types";
+import Login from "./components/Login/Login";
+import Registration from "./components/Registration/Registration";
 
 import "./App.scss";
-
-Map.propTypes = {
-    setCurrentPage: PropTypes.func.isRequired,
-};
+import logo from "./assets/img/loft-start-logo.svg";
 
 class App extends Component {
     state = {
-        currentPage: "header",
         isLoggedIn: false,
     };
 
     login = (page = "header", email, password) => {
-        if (
-            email === "example@mail.ru" &&
-            password === "123" &&
-            page !== "header"
-        ) {
-            this.setState({
-                isLoggedIn: true,
-            });
-            this.setCurrentPage(page);
-        }
+        this.setState({
+            isLoggedIn: true,
+        });
     };
 
     logout = () => {
@@ -36,33 +24,24 @@ class App extends Component {
         });
     };
 
-    pagesList = () => {
-        return {
-            map: <Map setCurrentPage={this.setCurrentPage} />,
-            header: (
-                <LoginContext.Provider value={this.login}>
-                    <Header
-                        currentPage={this.state.currentPage}
-                        setCurrentPage={this.setCurrentPage}
-                    />
-                </LoginContext.Provider>
-            ),
-        };
-    };
-
-    setCurrentPage = (page) => {
-        this.setState({ currentPage: page });
-        if (page === "header") {
-            this.setState({ isLoggedIn: false });
-        } else {
-            this.setState({ isLoggedIn: true });
-        }
-    };
-
     render() {
         return (
             <div className="main">
-                {this.pagesList()[this.state.currentPage]}
+                <div className="header">
+                    <div className="header__left">
+                        <img width="196" height="228" src={logo} alt="loft-start-logo" />
+                    </div>
+                    <div  className="header__right">
+                        <div className="header__right-sub"></div>
+                        <div className="header__form-wrapper">
+                            <Routes>
+                                <Route path="/" element={<Login />}/>
+                                <Route path="/login" element={<Login />}/>
+                                <Route path="/registration" element={<Registration />}/>
+                            </Routes>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

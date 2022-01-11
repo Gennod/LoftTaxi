@@ -61,6 +61,8 @@
         padding: rem(16) rem(140);
         background: $orange;
         border-radius: rem(70);
+        text-align: center;
+        text-decoration: none;
     }
     &__new {
         text-align: center;
@@ -70,6 +72,7 @@
     }
     &__new-btn {
         @include button-reset;
-        color: $orange
+        color: $orange;
+        text-decoration: none;
     }
 }

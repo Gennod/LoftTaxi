@@ -1,16 +1,17 @@
 import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
+
 import LoginContext from "./LoginContext";
 
 import "./Login.scss";
 
-const Login = ({setCurrentPage}) => {
+const Login = () => {
     const login = useContext(LoginContext);
 
     let email = "";
     let pass = "";
 
     const onLogin = (e, page) => {
-
         switch (e.target.id) {
             case "email":
                 email = e.target.value;
@@ -53,25 +54,20 @@ const Login = ({setCurrentPage}) => {
             <a href="/" className="login__forgot">
                 Забыли пароль?
             </a>
-            <button
-                onClick={(e) => onLogin(e, "map")}
+            <NavLink
+                to="/map"
                 className="login__button"
-                type="submit"
             >
                 Войти
-            </button>
+            </NavLink>
             <div className="login__new">
                 Новый пользователь?{" "}
-                <button
-                    onClick={(e) => {
-                        onLogin(e, "registration");
-                        setCurrentPage("registration");
-                    }}
+                <NavLink
+                    to="/registration"
                     className="login__new-btn"
-                    type="submit"
                 >
                     Регистрация
-                </button>
+                </NavLink>
             </div>
         </div>
     );

@@ -35,9 +35,9 @@ class App extends Component {
                         <div className="header__right-sub"></div>
                         <div className="header__form-wrapper">
                             <Routes>
-                                <Route path="/" element={<Login />}/>
-                                <Route path="/login" element={<Login />}/>
-                                <Route path="/registration" element={<Registration />}/>
+                                <Route exact path="/" element={<Login />}/>
+                                <Route exact path="/login" element={<Login />}/>
+                                <Route exact path="/registration" element={<Registration />}/>
                             </Routes>
                         </div>
                     </div>

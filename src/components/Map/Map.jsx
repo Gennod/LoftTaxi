@@ -33,7 +33,7 @@ class Map extends Component {
                         </li>
                         <li className="map__item">
                             <NavLink
-                                to="/profile"
+                                to="/map/profile"
                                 className="map__link"
                             >
                                 Профиль
@@ -41,7 +41,7 @@ class Map extends Component {
                         </li>
                         <li className="map__item">
                             <NavLink
-                                to="/"
+                                to="/login"
                                 className="map__link"
                             >
                                 Выйти
@@ -62,7 +62,6 @@ class Map extends Component {
                     <Routes>
                         <Route path="/profile" element={<Profile />}/>
                     </Routes>
-
                 </div>
             </div>
         );

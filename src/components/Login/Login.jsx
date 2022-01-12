@@ -1,76 +1,70 @@
-import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
-
-import LoginContext from "./LoginContext";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { authenticate, logout } from "../../actions";
 
 import "./Login.scss";
 
-const Login = () => {
-    const login = useContext(LoginContext);
+class Login extends Component {
+    
+    onLogin = (e) => {
+        e.preventDefault();
 
-    let email = "";
-    let pass = "";
+        let {email, password} = e.target;
 
-    const onLogin = (e, page) => {
-        switch (e.target.id) {
-            case "email":
-                email = e.target.value;
-                break;
-            case "password":
-                pass = e.target.value;
-                break;
-        }
-
-        login(page, email, pass);
+        this.props.authenticate(email.value, password.value);
     };
 
-    return (
-        <div className="login">
-            <h2 className="login__title">Войти</h2>
-            <div className="login__inputs">
-                <label className="login__label" htmlFor="email">
-                    Email
-                </label>
-                <input
-                    onChange={(e) => onLogin(e)}
-                    className="login__input"
-                    id="email"
-                    type="email"
-                    name="email"
-                    placeholder="Введите ваш email"
-                />
-                <label className="login__label" htmlFor="password">
-                    Password
-                </label>
-                <input
-                    onChange={(e) => onLogin(e)}
-                    className="login__input"
-                    id="password"
-                    type="password"
-                    name="password"
-                    placeholder="*********"
-                />
+    render() {
+        return (
+            <div className="login">
+                <h2 className="login__title">Войти</h2>
+                <form onSubmit={this.onLogin} className="login__inputs">
+                    <label className="login__label" htmlFor="email">
+                        Email
+                    </label>
+                    <input
+                        className="login__input"
+                        id="email"
+                        type="email"
+                        name="email"
+                        placeholder="Введите ваш email"
+                    />
+                    <label className="login__label" htmlFor="password">
+                        Password
+                    </label>
+                    <input
+                        className="login__input"
+                        id="password"
+                        type="password"
+                        name="password"
+                        placeholder="*********"
+                    />
+                    <a href="/" className="login__forgot">
+                    Забыли пароль?
+                    </a>
+                    <button
+                        type="submit"
+                        className="login__button"
+                    >
+                        Войти
+                    </button>
+                </form>
+                <div className="login__new">
+                    Новый пользователь?{" "}
+                    <Link
+                        to="/registration"
+                        className="login__new-btn"
+                    >
+                        Регистрация
+                    </Link>
+                </div>
             </div>
-            <a href="/" className="login__forgot">
-                Забыли пароль?
-            </a>
-            <NavLink
-                to="/map"
-                className="login__button"
-            >
-                Войти
-            </NavLink>
-            <div className="login__new">
-                Новый пользователь?{" "}
-                <NavLink
-                    to="/registration"
-                    className="login__new-btn"
-                >
-                    Регистрация
-                </NavLink>
-            </div>
-        </div>
-    );
+        );
+    }
 };
 
-export default Login;
+export default connect(
+    (state) => ({ isLoggedIn: state.auth.isLoggedIn }),
+    { authenticate, logout }
+)(Login);

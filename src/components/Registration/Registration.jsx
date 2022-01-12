@@ -4,13 +4,11 @@ import { Link } from "react-router-dom";
 import "./Registration.scss";
 
 class Registration extends Component {
-    componentDidMount() {}
-
     render() {
         return (
             <div className="registration">
                 <h2 className="registration__title">Регистрация</h2>
-                <div className="registration__inputs">
+                <form className="registration__inputs">
                     <label className="registration__label" htmlFor="email">
                         Email*
                     </label>
@@ -41,19 +39,13 @@ class Registration extends Component {
                         name="password"
                         placeholder="*********"
                     />
-                </div>
-                <Link
-                    to="/map"
-                    className="registration__button"
-                >
-                    Зарегистрироваться
-                </Link>
+                    <button type="submit" className="registration__button">
+                        Зарегистрироваться
+                    </button>
+                </form>
                 <div className="registration__new">
                     Уже зарегистрированы?{" "}
-                    <Link
-                        to="/login"
-                        className="login__new-btn"
-                    >
+                    <Link to="/login" className="login__new-btn">
                         Войти
                     </Link>
                 </div>

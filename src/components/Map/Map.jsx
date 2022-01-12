@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { NavLink, Route, Routes } from "react-router-dom";
+import { Link, Routes, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { logout } from "../../actions";
 
 import Profile from "../Profile/Profile";
 
@@ -10,9 +12,10 @@ import "./Map.scss";
 class Map extends Component {
     ref = React.createRef();
 
-    componentDidMount() {
-        const elem = this.ref.current;
-        console.log(elem);
+    unauthenticate = (e) => {
+        e.preventDefault();
+
+        this.props.logout();
     }
 
     render() {
@@ -24,28 +27,28 @@ class Map extends Component {
                     </div>
                     <ul className="map__menu">
                         <li className="map__item">
-                            <NavLink
+                            <Link
                                 to="/map"
                                 className="map__link map__link--active"
                             >
                                 Карта
-                            </NavLink>
+                            </Link>
                         </li>
                         <li className="map__item">
-                            <NavLink
+                            <Link
                                 to="/map/profile"
                                 className="map__link"
                             >
                                 Профиль
-                            </NavLink>
+                            </Link>
                         </li>
                         <li className="map__item">
-                            <NavLink
-                                to="/login"
+                            <button
+                                onClick={this.unauthenticate}
                                 className="map__link"
                             >
                                 Выйти
-                            </NavLink>
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -60,7 +63,7 @@ class Map extends Component {
                     ></iframe>
                     <div className="map__order"></div>
                     <Routes>
-                        <Route path="/profile" element={<Profile />}/>
+                        <Route exact path="/map/profile" element={<Profile />}/>
                     </Routes>
                 </div>
             </div>
@@ -68,4 +71,7 @@ class Map extends Component {
     }
 }
 
-export default Map;
+export default connect(
+    null,
+    { logout }
+)(Map);

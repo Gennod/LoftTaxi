@@ -6,11 +6,11 @@ import { authenticate, logout } from "../../actions";
 import "./Login.scss";
 
 class Login extends Component {
-    
+
     onLogin = (e) => {
         e.preventDefault();
 
-        let {email, password} = e.target;
+        let { email, password } = e.target;
 
         this.props.authenticate(email.value, password.value);
     };
@@ -41,7 +41,7 @@ class Login extends Component {
                         placeholder="*********"
                     />
                     <a href="/" className="login__forgot">
-                    Забыли пароль?
+                        Забыли пароль?
                     </a>
                     <button
                         type="submit"

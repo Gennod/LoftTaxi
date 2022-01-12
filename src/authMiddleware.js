@@ -1,5 +1,5 @@
 import { serverLogin } from "./api";
-import { AUTHENTICATE, authenticate } from "./actions";
+import { AUTHENTICATE, logIn } from "./actions";
 
 export const authMiddleware = (store) => (next) => async (action) => {
     if (action.type === AUTHENTICATE) {
@@ -8,7 +8,7 @@ export const authMiddleware = (store) => (next) => async (action) => {
         const success = await serverLogin(email, password);
         
         if (success) {
-            store.dispatch(authenticate());
+            store.dispatch(logIn());
             console.log(store.getState());
         } else {
             next(action);

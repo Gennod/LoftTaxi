@@ -15,6 +15,7 @@ class Map extends Component {
     unauthenticate = (e) => {
         e.preventDefault();
 
+<<<<<<< HEAD
         this.props.logOut();
         window.location.href = "/";
 
@@ -25,6 +26,11 @@ class Map extends Component {
         if (localStorage.getItem("isLoggedIn") == "false") {
             window.location.href = "/registration";
         }
+=======
+        console.log(this.props);
+
+        this.props.logout();
+>>>>>>> 7a628894d1dc1ad3f23abbf28a8ce84a71e848bb
     }
 
     render() {
@@ -47,7 +53,7 @@ class Map extends Component {
                         </li>
                         <li className="map__item">
                             <Link
-                                to="/map/profile"
+                                to="/profile"
                                 className="map__link"
                             >
                                 Профиль
@@ -74,7 +80,11 @@ class Map extends Component {
                     ></iframe>
                     <div className="map__order"></div>
                     <Routes>
+<<<<<<< HEAD
                         <Route path="/profile" element={<Profile />}/>
+=======
+                        <Route exact path="/profile" element={<Profile />}/>
+>>>>>>> 7a628894d1dc1ad3f23abbf28a8ce84a71e848bb
                     </Routes>
                 </div>
             </div>

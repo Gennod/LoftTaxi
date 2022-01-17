@@ -6,10 +6,14 @@ import { authenticate } from "../../actions";
 import "./Login.scss";
 
 class Login extends Component {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a628894d1dc1ad3f23abbf28a8ce84a71e848bb
     onLogin = (e) => {
         e.preventDefault();
 
-        let {email, password} = e.target;
+        let { email, password } = e.target;
 
         this.props.authenticate(email.value, password.value);
     };
@@ -46,12 +50,18 @@ class Login extends Component {
                         name="password"
                         placeholder="*********"
                     />
+<<<<<<< HEAD
                     <button onClick={(e) => this.onForgotBtnClick(e)} href="/" className="login__forgot">
                     Забыли пароль?
                     </button>
                     <div className="login__help login__help--hidden">
                         <b>email:</b> <span>test@test.com</span> <b>password:</b><span>123123</span>
                     </div>
+=======
+                    <a href="/" className="login__forgot">
+                        Забыли пароль?
+                    </a>
+>>>>>>> 7a628894d1dc1ad3f23abbf28a8ce84a71e848bb
                     <button
                         type="submit"
                         className="login__button"

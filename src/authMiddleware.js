@@ -1,5 +1,8 @@
 import { serverLogin } from "./api";
+<<<<<<< HEAD
 import { store } from "./store";
+=======
+>>>>>>> 7a628894d1dc1ad3f23abbf28a8ce84a71e848bb
 import { AUTHENTICATE, logIn } from "./actions";
 
 export const authMiddleware = (state) => (next) => async (action) => {
@@ -10,10 +13,17 @@ export const authMiddleware = (state) => (next) => async (action) => {
 
         if (success) {
             store.dispatch(logIn());
+<<<<<<< HEAD
             window.location.href = "/map/map";
             localStorage.setItem("isLoggedIn", true);
         } 
     } else {
         next(action);
+=======
+            console.log(store.getState());
+        } else {
+            next(action);
+        }
+>>>>>>> 7a628894d1dc1ad3f23abbf28a8ce84a71e848bb
     }
 }   

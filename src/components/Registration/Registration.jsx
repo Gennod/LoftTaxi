@@ -1,14 +1,23 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
+import { serverReg } from "../../api";
 
 import "./Registration.scss";
 
 class Registration extends Component {
+    onReg = async (e) => {
+        e.preventDefault();
+
+        let success = await serverReg("test@test.com", "123123", "NAME", "SURNAME");
+
+        console.log(success);
+    }
+
     render() {
         return (
             <div className="registration">
                 <h2 className="registration__title">Регистрация</h2>
-                <form className="registration__inputs">
+                <form onSubmit={(e) => this.onReg(e)} className="registration__inputs">
                     <label className="registration__label" htmlFor="email">
                         Email*
                     </label>

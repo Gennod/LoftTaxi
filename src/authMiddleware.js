@@ -1,17 +1,19 @@
 import { serverLogin } from "./api";
-import { AUTHENTICATE, authenticate } from "./actions";
+import { store } from "./store";
+import { AUTHENTICATE, logIn } from "./actions";
 
-export const authMiddleware = (store) => (next) => async (action) => {
+export const authMiddleware = (state) => (next) => async (action) => {
     if (action.type === AUTHENTICATE) {
         const { email, password } = action.payload;
 
         const success = await serverLogin(email, password);
-        
+
         if (success) {
-            store.dispatch(authenticate());
-            console.log(store.getState());
-        } else {
-            next(action);
-        }
+            store.dispatch(logIn());
+            window.location.href = "/map/map";
+            localStorage.setItem("isLoggedIn", true);
+        } 
+    } else {
+        next(action);
     }
-}
+}   

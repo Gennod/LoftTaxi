@@ -8,10 +8,14 @@ import Map from "./components/Map/Map";
 import "./App.scss";
 
 class App extends Component {
+
     render() {
         return (
             <div className="main">
-                {this.props.isLoggedIn ? <Map /> : <Home /> }
+                <Routes>
+                    <Route path="/map/*" element={<Map />}/>
+                    <Route path="/*" element={<Home />}/>
+                </Routes>
             </div>
         );  
     }

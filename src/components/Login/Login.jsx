@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { authenticate, logout } from "../../actions";
+import { authenticate } from "../../actions";
 
 import "./Login.scss";
 
 class Login extends Component {
-    
     onLogin = (e) => {
         e.preventDefault();
 
@@ -14,6 +13,13 @@ class Login extends Component {
 
         this.props.authenticate(email.value, password.value);
     };
+
+    onForgotBtnClick = (e) => {
+        e.preventDefault();
+        const elem = document.querySelector(".login__help");
+
+        elem.classList.toggle("login__help--hidden");
+    }
 
     render() {
         return (
@@ -40,9 +46,12 @@ class Login extends Component {
                         name="password"
                         placeholder="*********"
                     />
-                    <a href="/" className="login__forgot">
+                    <button onClick={(e) => this.onForgotBtnClick(e)} href="/" className="login__forgot">
                     Забыли пароль?
-                    </a>
+                    </button>
+                    <div className="login__help login__help--hidden">
+                        <b>email:</b> <span>test@test.com</span> <b>password:</b><span>123123</span>
+                    </div>
                     <button
                         type="submit"
                         className="login__button"
@@ -65,6 +74,6 @@ class Login extends Component {
 };
 
 export default connect(
-    (state) => ({ isLoggedIn: state.auth.isLoggedIn }),
-    { authenticate, logout }
+    null,
+    { authenticate }
 )(Login);

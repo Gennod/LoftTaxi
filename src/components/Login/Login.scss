@@ -42,6 +42,7 @@
         width: rem(355);
     }
     &__forgot {
+        @include button-reset;
         display: inline-block;
         margin-top: rem(13);
         text-decoration: none;
@@ -49,6 +50,8 @@
         font-size: rem($fz-label);
         font-weight: $regular;
         transition: .3s all;
+        margin-bottom: rem(10);
+        text-align: right;
         &:hover {
             color: $black;
         }
@@ -74,5 +77,16 @@
         @include button-reset;
         color: $orange;
         text-decoration: none;
+    }
+    &__help {
+        opacity: 1;
+        text-align: center;
+        transition: 0.3s;
+        span {
+            color: red;
+        }
+        &--hidden {
+            opacity: 0;
+        }
     }
 }

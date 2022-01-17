@@ -10,6 +10,13 @@ import logo from "../../assets/img/loft-start-logo.svg";
 import "./Home.scss";
 
 class Home extends Component {
+
+    componentDidMount() {
+        if (localStorage.getItem("isLoggedIn") == "true") {
+            window.location.href = "/map/map";
+        }
+    }
+
     render() {
         return (
             <div className="home">

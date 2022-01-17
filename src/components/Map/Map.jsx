@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { logout } from "../../actions";
+import { logOut } from "../../actions";
 
 import Profile from "../Profile/Profile";
 
@@ -15,10 +15,21 @@ class Map extends Component {
     unauthenticate = (e) => {
         e.preventDefault();
 
-        this.props.logout();
+        this.props.logOut();
+        window.location.href = "/";
+
+        localStorage.setItem("isLoggedIn", false);
+    }
+
+    componentDidMount() {
+        if (localStorage.getItem("isLoggedIn") == "false") {
+            window.location.href = "/registration";
+        }
     }
 
     render() {
+
+
         return (
             <div className="map">
                 <div className="map__header">
@@ -63,7 +74,7 @@ class Map extends Component {
                     ></iframe>
                     <div className="map__order"></div>
                     <Routes>
-                        <Route exact path="/map/profile" element={<Profile />}/>
+                        <Route path="/profile" element={<Profile />}/>
                     </Routes>
                 </div>
             </div>
@@ -72,6 +83,6 @@ class Map extends Component {
 }
 
 export default connect(
-    null,
-    { logout }
+    (state) => ({ isLoggedIn: state.auth.isLoggedIn }),
+    { logOut }
 )(Map);

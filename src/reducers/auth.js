@@ -1,7 +1,7 @@
-import { LOG_IN, LOG_OUT } from "../actions";
+import { LOG_IN, LOG_OUT } from "../types";
 
 const initialState = {
-    isLoggedIn: localStorage.getItem("isLoggedIn") ? true : false,
+    isLoggedIn: false,
 };
 
 export default function (state = initialState, action) {

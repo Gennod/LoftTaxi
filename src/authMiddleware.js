@@ -1,29 +1,17 @@
 import { serverLogin } from "./api";
-<<<<<<< HEAD
-import { store } from "./store";
-=======
->>>>>>> 7a628894d1dc1ad3f23abbf28a8ce84a71e848bb
-import { AUTHENTICATE, logIn } from "./actions";
+import { AUTHENTICATE, actLogIn } from "./reducers/auth";
 
-export const authMiddleware = (state) => (next) => async (action) => {
+export const authMiddleware = (store) => (next) => async (action) => {
     if (action.type === AUTHENTICATE) {
         const { email, password } = action.payload;
 
         const success = await serverLogin(email, password);
 
         if (success) {
-            store.dispatch(logIn());
-<<<<<<< HEAD
-            window.location.href = "/map/map";
-            localStorage.setItem("isLoggedIn", true);
-        } 
+            store.dispatch(actLogIn());
+            console.log(store.getState());
+        }
     } else {
         next(action);
-=======
-            console.log(store.getState());
-        } else {
-            next(action);
-        }
->>>>>>> 7a628894d1dc1ad3f23abbf28a8ce84a71e848bb
     }
-}   
+};

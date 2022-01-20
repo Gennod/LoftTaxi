@@ -1,11 +1,15 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import store from "./store";
 
-import Home from "./components/Home/Home";
-import Map from "./components/Map/Map";
+import Map from "./pages/Map/Map";
+import Profile from "./pages/Profile/Profile";
+import Login from "./components/Login/Login";
+import Registration from "./components/Registration/Registration";
 
 import "./App.scss";
+import ProtectedRoute from "./ProtectedRoute";
 
 class App extends Component {
 
@@ -13,12 +17,15 @@ class App extends Component {
         return (
             <div className="main">
                 <Routes>
-                    <Route path="/map/*" element={<Map />}/>
-                    <Route path="/*" element={<Home />}/>
+                    <Route path="/" element={<ProtectedRoute />}>
+                        <Route path="/map" element={<Map />} />
+                        <Route path="/profile" element={<Profile />} />
+                    </Route>
+                    <Route path="/registration" element={<Registration />} />
                 </Routes>
             </div>
-        );  
+        );
     }
 }
 
-export default connect((state) => ({ isLoggedIn: state.auth.isLoggedIn }))(App);
+export default App;

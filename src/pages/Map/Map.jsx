@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { logOut } from "../../actions";
 
 import Profile from "../Profile/Profile";
 
@@ -12,25 +11,16 @@ import "./Map.scss";
 class Map extends Component {
     ref = React.createRef();
 
-    unauthenticate = (e) => {
+    logOut = (e) => {
         e.preventDefault();
 
-<<<<<<< HEAD
-        this.props.logOut();
-        window.location.href = "/";
-
-        localStorage.setItem("isLoggedIn", false);
+        this.props.actLogOut();
     }
 
     componentDidMount() {
         if (localStorage.getItem("isLoggedIn") == "false") {
             window.location.href = "/registration";
         }
-=======
-        console.log(this.props);
-
-        this.props.logout();
->>>>>>> 7a628894d1dc1ad3f23abbf28a8ce84a71e848bb
     }
 
     render() {
@@ -61,7 +51,7 @@ class Map extends Component {
                         </li>
                         <li className="map__item">
                             <button
-                                onClick={this.unauthenticate}
+                                onClick={this.logOut}
                                 className="map__link"
                             >
                                 Выйти
@@ -79,20 +69,10 @@ class Map extends Component {
                         title="Navigation"
                     ></iframe>
                     <div className="map__order"></div>
-                    <Routes>
-<<<<<<< HEAD
-                        <Route path="/profile" element={<Profile />}/>
-=======
-                        <Route exact path="/profile" element={<Profile />}/>
->>>>>>> 7a628894d1dc1ad3f23abbf28a8ce84a71e848bb
-                    </Routes>
                 </div>
             </div>
         );
     }
 }
 
-export default connect(
-    (state) => ({ isLoggedIn: state.auth.isLoggedIn }),
-    { logOut }
-)(Map);
+export default Map;

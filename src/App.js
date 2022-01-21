@@ -1,11 +1,8 @@
 import { Component } from "react";
-import { connect } from "react-redux";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import store from "./store";
+import { Route, Routes } from "react-router-dom";
 
 import Map from "./pages/Map/Map";
 import Profile from "./pages/Profile/Profile";
-import Login from "./components/Login/Login";
 import Registration from "./components/Registration/Registration";
 
 import "./App.scss";

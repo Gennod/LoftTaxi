@@ -1,7 +1,11 @@
 import React from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
-import store from "../../store";
+import { useFormik } from "formik";
+
+import { Input } from "../Input/Input";
+
+import { GET_INPUT } from "../../types";
 
 import logo from "../../assets/img/loft-start-logo.svg";
 
@@ -9,17 +13,75 @@ import "./Login.scss";
 
 import { getAuth } from "../../actions/getAuth";
 
+import store from "../../store";
+
 const Login = () => {
     const dispatch = useDispatch();
     let navigate = useNavigate();
 
-    const onLogin = (e) => {
-        e.preventDefault();
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        onSubmit: (values) => {
+            dispatch(getAuth(values.email, values.password, navigate));
+            dispatch({type: GET_INPUT, payload: {
+                email: values.email,
+                password: values.password
+            }})
+            console.log(store.getState());
+        },
+    });
 
-        let { email, password } = e.target;
+    let inputsData = [
+        {
+            className: "login__input",
+            id: "email",
+            name: "email",
+            type: "email",
+            placeholder: "Введите ваш email",
+            labelText: "Email:",
+            labelClassName: "login__label",
+        },
+        {
+            className: "login__input",
+            id: "password",
+            name: "password",
+            type: "password",
+            placeholder: "******",
+            labelText: "Password:",
+            labelClassName: "login__label",
+        },
+    ];
 
-        dispatch(getAuth(email.value, password.value, navigate));
-    };
+    let inputs = inputsData.map(
+        (
+            {
+                className,
+                id,
+                type,
+                name,
+                placeholder,
+                labelText,
+                labelClassName,
+            },
+            idx
+        ) => (
+            <Input
+                key={idx}
+                className={className}
+                id={id}
+                type={type}
+                name={name}
+                placeholder={placeholder}
+                labelText={labelText}
+                labelClassName={labelClassName}
+                onChange={formik.handleChange}
+                values={formik.values}
+            />
+        )
+    );
 
     return (
         <div className="home">
@@ -36,27 +98,11 @@ const Login = () => {
                 <div className="home__form-wrapper">
                     <div className="login">
                         <h2 className="login__title">Войти</h2>
-                        <form onSubmit={onLogin} className="login__inputs">
-                            <label className="login__label" htmlFor="email">
-                                Email
-                            </label>
-                            <input
-                                className="login__input"
-                                id="email"
-                                type="email"
-                                name="email"
-                                placeholder="Введите ваш email"
-                            />
-                            <label className="login__label" htmlFor="password">
-                                Password
-                            </label>
-                            <input
-                                className="login__input"
-                                id="password"
-                                type="password"
-                                name="password"
-                                placeholder="*********"
-                            />
+                        <form
+                            onSubmit={formik.handleSubmit}
+                            className="login__inputs"
+                        >
+                            {inputs}
                             <button href="/" className="login__forgot">
                                 Забыли пароль?
                             </button>

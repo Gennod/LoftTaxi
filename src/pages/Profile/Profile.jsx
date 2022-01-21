@@ -23,9 +23,9 @@ const Profile = () => {
     const logOut = (e) => {
         e.preventDefault();
 
-        dispatch({type: LOG_OUT});
+        dispatch({ type: LOG_OUT });
         navigate("/");
-    }
+    };
 
     const onNumInput = (e) => {
         let cardCode = e.target.value.replace(/[^\d]/g, "").substring(0, 16);
@@ -34,7 +34,6 @@ const Profile = () => {
 
         setNumber(e.target.value);
     };
-
 
     return (
         <div className="map">
@@ -95,6 +94,13 @@ const Profile = () => {
                                 placeholder="0000 0000 0000 0000"
                             />
                         </div>
+                        <Cards
+                            number={number}
+                            name={name}
+                            expiry={expiry}
+                            cvc={cvc}
+                            focused={focus}
+                        />
                         <div className="profile__about-right">
                             <label className="profile__label" htmlFor="date">
                                 MM/YY
@@ -123,14 +129,10 @@ const Profile = () => {
                                 placeholder="000"
                             />
                         </div>
+                        <button type="submit" className="profile__button">
+                            Сохранить
+                        </button>
                     </form>
-                    <Cards
-                        number={number}
-                        name={name}
-                        expiry={expiry}
-                        cvc={cvc}
-                        focused={focus}
-                    />
                 </div>
             </div>
         </div>

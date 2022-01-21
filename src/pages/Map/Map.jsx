@@ -30,6 +30,7 @@ const Map = () => {
     };
 
     useEffect(() => {
+        let isMounted = true;
         if (map.current) return; // initialize map only once
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
@@ -37,11 +38,17 @@ const Map = () => {
             center: [lng, lat],
             zoom: zoom,
         });
+        console.log(map.current);
         map.current.on("move", () => {
-            setLng(map.current.getCenter().lng.toFixed(4));
-            setLat(map.current.getCenter().lat.toFixed(4));
-            setZoom(map.current.getZoom().toFixed(2));
+            if (isMounted) {
+                setLng(map.current.getCenter().lng.toFixed(4));
+                setLat(map.current.getCenter().lat.toFixed(4));
+                setZoom(map.current.getZoom().toFixed(2));
+            }
         });
+        return () => {
+            isMounted = false;
+        };
     });
 
     return (

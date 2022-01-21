@@ -13,7 +13,7 @@
     padding: rem(20) rem(44) rem(67) rem(44);
     text-align: center;
     &__title {
-        margin: 0 0 0 rem(13);
+        margin: 0;
         font-weight: 700;
         font-size: rem($fz-big);
     }
@@ -30,8 +30,10 @@
     &__form {
         text-align: left;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr; 
+        grid-template-rows: 1fr auto;
         column-gap: rem(60);
+        row-gap: rem(60);
         margin-bottom: rem(30);
     }
     &__input {
@@ -52,18 +54,30 @@
     &__label {
         font-size: rem($fz-label);
         font-weight: $bold;
-        margin-top: rem(25);
+        margin-top: rem(15);
         text-align: left;
         color: $gray-dark;
     }
     &__about-left {
         display: grid;
         box-shadow: 0 rem(5) rem(11) 0 rgba(50, 50, 50, 0.75);
-        padding: rem(30) rem(50) rem(55) rem(50);
+        padding: rem(20) rem(20) rem(35) rem(20);
     }
     &__about-right {
         display: grid;
         box-shadow: 0 rem(5) rem(11) 0 rgba(50, 50, 50, 0.75);
-        padding: rem(30) rem(50) rem(55) rem(50);
+        padding: rem(20) rem(20) rem(35) rem(20);
+    }
+    &__button {
+        @include button-reset;
+        @include push--auto;
+        display: block;
+        padding: rem(16) rem(60);
+        background: $orange;
+        border-radius: rem(70);
+        text-align: center;
+        text-decoration: none;
+        grid-column-start: 2;
+        grid-column-end: 3;
     }
 }

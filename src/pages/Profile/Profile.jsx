@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
+import { Error } from "../../components/Error/Error";
+
 import logoSecond from "../../assets/img/loft-logo.svg";
 
 import Cards from "react-credit-cards";
@@ -19,7 +21,9 @@ const Profile = () => {
     const [focus, setFocus] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const wrongDateMessage = "Введите месяц и год в правильном формате! (MM/YY)"
+    let wrongDate = true;
+    
     const logOut = (e) => {
         e.preventDefault();
 
@@ -34,6 +38,20 @@ const Profile = () => {
 
         setNumber(e.target.value);
     };
+
+    const validDate = (dValue) => {
+        const regexp = RegExp("^(0[1-9]|1[0-2])\/?([0-9]{2})$");
+
+        if (regexp.test(dValue)) {
+            wrongDate = false;
+        }
+
+        dValue = dValue.replace(/[^\d]/g, "").substring(0, 4);;
+        dValue = dValue !== "" ? dValue.match(/.{1,2}/g).join("/") : "";
+        console.log(wrongDate);
+
+        return dValue;
+    }
 
     return (
         <div className="map">
@@ -103,11 +121,11 @@ const Profile = () => {
                         />
                         <div className="profile__about-right">
                             <label className="profile__label" htmlFor="date">
-                                MM/YY
+                                MM/YY {wrongDate ? <Error message={wrongDateMessage} /> : null}
                             </label>
                             <input
                                 onChange={(e) => setExpiry(e.target.value)}
-                                value={expiry}
+                                value={validDate(expiry)}
                                 onFocus={(e) => setFocus(e.target.name)}
                                 className="profile__input"
                                 id="date"

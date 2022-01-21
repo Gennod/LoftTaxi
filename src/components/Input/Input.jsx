@@ -23,6 +23,7 @@ export const Input = ({
                 placeholder={placeholder}
                 onChange={onChange}
                 value={values[name]}
+                autoComplete="on"
             />
         </>
     );

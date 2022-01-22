@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { LOG_OUT } from "../../types";
+import { LOG_OUT, GET_ADDRESS } from "../../types";
 
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 
@@ -38,7 +38,6 @@ const Map = () => {
             center: [lng, lat],
             zoom: zoom,
         });
-        console.log(map.current);
         map.current.on("move", () => {
             if (isMounted) {
                 setLng(map.current.getCenter().lng.toFixed(4));
@@ -46,6 +45,9 @@ const Map = () => {
                 setZoom(map.current.getZoom().toFixed(2));
             }
         });
+
+        dispatch(GET_ADDRESS());
+
         return () => {
             isMounted = false;
         };

@@ -1,16 +1,16 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getReg } from "../../actions/getReg";
 import { useNavigate } from "react-router";
 import { useFormik } from "formik";
 
-import { GET_INPUT } from "../../types";
+import { GET_INPUT, REG } from "../../types";
 
 import { Input } from "../Input/Input";
 
 import logo from "../../assets/img/loft-start-logo.svg";
 
 import "./Registration.scss";
+
 
 import store from "../../store";
 
@@ -25,13 +25,13 @@ const Registration = () => {
             name: ""
         },
         onSubmit: (values) => {
-            dispatch(getReg("test5@test.com", "123123", "NAME", "SURNAME", navigate));
+            dispatch(REG(values.email, values.password, "NAME", "SURNAME", navigate));
 
             dispatch({type: GET_INPUT, payload: {
                 email: values.email,
                 password: values.password
             }})
-            console.log(store.getState());
+
         },
     });
 

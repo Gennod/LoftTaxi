@@ -5,15 +5,12 @@ import { useFormik } from "formik";
 
 import { Input } from "../Input/Input";
 
-import { GET_INPUT } from "../../types";
+import { GET_INPUT, LOG_IN } from "../../types";
 
 import logo from "../../assets/img/loft-start-logo.svg";
 
 import "./Login.scss";
 
-import { getAuth } from "../../actions/getAuth";
-
-import store from "../../store";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -25,15 +22,14 @@ const Login = () => {
             password: "",
         },
         onSubmit: (values) => {
-            dispatch(getAuth(values.email, values.password, navigate));
             dispatch({type: GET_INPUT, payload: {
                 email: values.email,
                 password: values.password
             }})
-            console.log(store.getState());
+            dispatch(LOG_IN(values.email, values.password, navigate));
         },
     });
-
+    
     let inputsData = [
         {
             className: "login__input",

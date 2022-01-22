@@ -8,7 +8,7 @@ import logoSecond from "../../assets/img/loft-logo.svg";
 
 import Cards from "react-credit-cards";
 
-import { LOG_OUT } from "../../types";
+import { LOG_OUT, GET_CARD } from "../../types";
 
 import "react-credit-cards/es/styles-compiled.css";
 import "./Profile.scss";
@@ -21,9 +21,8 @@ const Profile = () => {
     const [focus, setFocus] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const wrongDateMessage = "Введите месяц и год в правильном формате! (MM/YY)"
-    let wrongDate = true;
-    
+    const [backspaceFlag, setBackspaceFlag] = useState(false);
+
     const logOut = (e) => {
         e.preventDefault();
 
@@ -39,18 +38,39 @@ const Profile = () => {
         setNumber(e.target.value);
     };
 
-    const validDate = (dValue) => {
-        const regexp = RegExp("^(0[1-9]|1[0-2])\/?([0-9]{2})$");
-
-        if (regexp.test(dValue)) {
-            wrongDate = false;
+    const validateExpiry = (text) => {
+        let textTemp = text;
+        if (textTemp[0] !== "1" && textTemp[0] !== "0") {
+            textTemp = "";
         }
+        if (textTemp.length === 2) {
+            if (
+                parseInt(textTemp.substring(0, 2)) > 12 ||
+                parseInt(textTemp.substring(0, 2)) == 0
+            ) {
+                textTemp = textTemp[0];
+            } else if (text.length === 2 && !backspaceFlag) {
+                textTemp += "/";
+                setBackspaceFlag(true);
+            } else if (text.length === 2 && backspaceFlag) {
+                textTemp = textTemp[0];
+                setBackspaceFlag(false);
+            } else {
+                textTemp = textTemp[0];
+            }
+        }
+        setExpiry(textTemp);
+    };
 
-        dValue = dValue.replace(/[^\d]/g, "").substring(0, 4);;
-        dValue = dValue !== "" ? dValue.match(/.{1,2}/g).join("/") : "";
-        console.log(wrongDate);
+    const validateName = (name) => {
+        name = name.replace(/[^\D+]/g, "");
 
-        return dValue;
+        setName(name);
+    };
+
+    const handleCardAccept = (e) => {
+        e.preventDefault();
+        dispatch(GET_CARD(number, name, expiry, cvc));
     }
 
     return (
@@ -83,13 +103,13 @@ const Profile = () => {
                     <p className="profile__subtitle">
                         Введите платежные данные
                     </p>
-                    <form className="profile__form">
+                    <form onSubmit={handleCardAccept} className="profile__form">
                         <div className="profile__about-left">
                             <label className="profile__label" htmlFor="owner">
                                 Имя владельца
                             </label>
                             <input
-                                onChange={(e) => setName(e.target.value)}
+                                onChange={(e) => validateName(e.target.value)}
                                 value={name}
                                 onFocus={(e) => setFocus(e.target.name)}
                                 className="profile__input"
@@ -121,17 +141,18 @@ const Profile = () => {
                         />
                         <div className="profile__about-right">
                             <label className="profile__label" htmlFor="date">
-                                MM/YY {wrongDate ? <Error message={wrongDateMessage} /> : null}
+                                MM/YY{" "}
                             </label>
                             <input
-                                onChange={(e) => setExpiry(e.target.value)}
-                                value={validDate(expiry)}
+                                onChange={(e) => validateExpiry(e.target.value)}
+                                value={expiry}
                                 onFocus={(e) => setFocus(e.target.name)}
                                 className="profile__input"
                                 id="date"
                                 type="text"
                                 name="date"
                                 placeholder="00/00"
+                                maxLength={5}
                             />
                             <label className="profile__label" htmlFor="cvc">
                                 CVC
@@ -145,6 +166,7 @@ const Profile = () => {
                                 type="text"
                                 name="cvc"
                                 placeholder="000"
+                                maxLength={3}
                             />
                         </div>
                         <button type="submit" className="profile__button">

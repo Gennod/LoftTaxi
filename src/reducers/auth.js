@@ -1,4 +1,4 @@
-import { LOG_OUT, REG, GET_INPUT } from "../types";
+import { LOG_OUT, REG, GET_INPUT } from "../actions";
 
 const initialState = {
     isLoggedIn: false,

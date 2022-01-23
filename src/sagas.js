@@ -1,5 +1,5 @@
 import { takeEvery, call, put } from "redux-saga/effects";
-import { FETCH_CARD, FETCH_ADDRESS, FETCH_LOG_IN, FETCH_ROUTES } from "./types";
+import { FETCH_CARD, FETCH_ADDRESS, FETCH_LOG_IN, FETCH_ROUTES } from "./actions";
 import axios from "axios";
 
 const getAuth = (email, password) => {

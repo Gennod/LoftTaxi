@@ -1,11 +1,12 @@
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { LOG_OUT, GET_ADDRESS, GET_ROUTES } from "../../types";
+import { LOG_OUT, GET_ADDRESS, GET_ROUTES } from "../../actions";
 
 import { drawRoute } from "../../drawRoute";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import SelectSearch, { fuzzySearch } from "react-select-search";
+import { Error } from "../../components/Error/Error";
 
 import logoSecond from "../../assets/img/loft-logo.svg";
 
@@ -123,6 +124,7 @@ const Map = () => {
                 </ul>
             </div>
             <div ref={mapContainer} className="map__map">
+                
                 <form onSubmit={handleRoutes} className="map__order">
                     {adresses ? (
                         <SelectSearch
@@ -145,6 +147,7 @@ const Map = () => {
                             disabled={toDisabled ? true : false}
                         />
                     ) : null}
+                    {isCardConnected ? null : <Error message="Введите данные карты на странице профиля!"/>}
                     <button
                         className="map__button"
                         disabled={toDisabled ? true : false}

@@ -3,6 +3,7 @@
 
 .profile {
     position: absolute;
+    overflow: scroll;
     left: 0;
     top: 0;
     width: 100%;
@@ -30,7 +31,7 @@
     &__form {
         text-align: left;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr; 
+        grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr auto;
         column-gap: rem(60);
         row-gap: rem(60);
@@ -79,5 +80,80 @@
         text-decoration: none;
         grid-column-start: 2;
         grid-column-end: 3;
+    }
+}
+
+@media (max-width: 1027px) {
+    .profile {
+        &__form {
+            column-gap: rem(30);
+        }
+    }
+}
+@media (max-width: 975px) {
+    .profile {
+        &__form {
+            grid-template-columns: 1fr 1fr;
+        }
+        &__button {
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+        &__about-right {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 1;
+            grid-row-end: 2;
+        }
+        &__about-left {
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+    }
+    .rccs {
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+}
+
+@media (max-width: 675px) {
+    .profile {
+        &__form {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr 1fr rem(70);
+            row-gap: rem(25);
+        }
+        &__button {
+            grid-column-start: 1;
+            grid-column-end: 1;
+            grid-row-start: 4;
+            grid-row-end: 5;
+        }
+        &__about-right {
+            grid-column-start: 1;
+            grid-column-end: 1;
+            grid-row-start: 2;
+            grid-row-end: 3;
+        }
+        &__about-left {
+            grid-column-start: 1;
+            grid-column-end: 1;
+            grid-row-start: 3;
+            grid-row-end: 4;
+        }
+    }
+    .rccs {
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+}
+@media (max-width: 675px) {
+    .profile {
+        padding: rem(20) rem(10) rem(67) rem(10);
+    }
+}
+@media (max-width: 320px) {
+    .rccs__card {
+        width: rem(250);
     }
 }

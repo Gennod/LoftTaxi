@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { useFormik } from "formik";
 
-import { GET_INPUT, REG } from "../../types";
+import { GET_INPUT, REG } from "../../actions";
 
 import { Input } from "../Input/Input";
 

@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 
 import { Input } from "../Input/Input";
 
-import { GET_INPUT, LOG_IN } from "../../types";
+import { GET_INPUT, LOG_IN } from "../../actions";
 
 import logo from "../../assets/img/loft-start-logo.svg";
 
@@ -79,6 +79,10 @@ const Login = () => {
         )
     );
 
+    const handleForgotButtonClick = (evt) => {
+        evt.preventDefault();
+    }
+
     return (
         <div className="home">
             <div className="home__left">
@@ -99,7 +103,7 @@ const Login = () => {
                             className="login__inputs"
                         >
                             {inputs}
-                            <button href="/" className="login__forgot">
+                            <button onClick={handleForgotButtonClick} href="/" className="login__forgot">
                                 Забыли пароль?
                             </button>
                             <button type="submit" className="login__button">

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { Error } from "../../components/Error/Error";
@@ -8,7 +8,7 @@ import logoSecond from "../../assets/img/loft-logo.svg";
 
 import Cards from "react-credit-cards";
 
-import { LOG_OUT, GET_CARD, ENABLE_ROUTES } from "../../types";
+import { LOG_OUT, GET_CARD, ENABLE_ROUTES } from "../../actions";
 
 import "react-credit-cards/es/styles-compiled.css";
 import "./Profile.scss";
@@ -96,12 +96,12 @@ const Profile = () => {
                 </div>
                 <ul className="map__menu">
                     <li className="map__item">
-                        <Link to="/map" className="map__link map__link--active">
+                        <Link to="/map" className="map__link">
                             Карта
                         </Link>
                     </li>
                     <li className="map__item">
-                        <Link to="/profile" className="map__link">
+                        <Link to="/profile" className="map__link map__link--active">
                             Профиль
                         </Link>
                     </li>

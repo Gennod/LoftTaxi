@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -8,7 +8,7 @@ import logoSecond from "../../assets/img/loft-logo.svg";
 
 import Cards from "react-credit-cards";
 
-import { LOG_OUT, GET_CARD } from "../../types";
+import { LOG_OUT, GET_CARD, ENABLE_ROUTES } from "../../types";
 
 import "react-credit-cards/es/styles-compiled.css";
 import "./Profile.scss";
@@ -22,6 +22,7 @@ const Profile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [backspaceFlag, setBackspaceFlag] = useState(false);
+    const [isCardConnected, setIsCardConnected] = useState(false);
 
     const logOut = (e) => {
         e.preventDefault();
@@ -70,8 +71,22 @@ const Profile = () => {
 
     const handleCardAccept = (e) => {
         e.preventDefault();
-        dispatch(GET_CARD(number, name, expiry, cvc));
+
+        setIsCardConnected(true);
     }
+
+    useEffect(() => {
+        let isMounted = true;
+
+        if (isCardConnected) {
+            dispatch(GET_CARD(number, name, expiry, cvc));
+            dispatch(ENABLE_ROUTES());
+        }
+        
+        return () => {
+            isMounted = false;
+        };
+    });
 
     return (
         <div className="map">

@@ -15,6 +15,7 @@ class App extends Component {
             <div className="main">
                 <Routes>
                     <Route path="/" element={<ProtectedRoute />}>
+                        
                         <Route path="/map" element={<Map />} />
                         <Route path="/profile" element={<Profile />} />
                     </Route>

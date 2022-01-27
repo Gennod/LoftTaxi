@@ -8,14 +8,17 @@ export const Input = ({
     labelText,
     labelClassName,
     onChange,
-    values
+    values,
+    autofocus,
 }) => {
     return (
+        
         <>
             <label className={labelClassName} htmlFor={id}>
                 {labelText}
             </label>
             <input
+                autoFocus={autofocus ? true : false}
                 className={className}
                 id={id}
                 type={type}

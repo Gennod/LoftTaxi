@@ -1,14 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
-import { Error } from "../../components/Error/Error";
-
-import logoSecond from "../../assets/img/loft-logo.svg";
 
 import Cards from "react-credit-cards";
 
-import { LOG_OUT, GET_CARD, ENABLE_ROUTES } from "../../actions";
+import { GET_CARD, ENABLE_ROUTES } from "../../actions";
 
 import "react-credit-cards/es/styles-compiled.css";
 import "./Profile.scss";
@@ -20,16 +15,8 @@ const Profile = () => {
     const [cvc, setCvc] = useState("");
     const [focus, setFocus] = useState("");
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [backspaceFlag, setBackspaceFlag] = useState(false);
     const [isCardConnected, setIsCardConnected] = useState(false);
-
-    const logOut = (e) => {
-        e.preventDefault();
-
-        dispatch({ type: LOG_OUT });
-        navigate("/");
-    };
 
     const onNumInput = (e) => {
         let cardCode = e.target.value.replace(/[^\d]/g, "").substring(0, 16);
@@ -47,7 +34,7 @@ const Profile = () => {
         if (textTemp.length === 2) {
             if (
                 parseInt(textTemp.substring(0, 2)) > 12 ||
-                parseInt(textTemp.substring(0, 2)) == 0
+                parseInt(textTemp.substring(0, 2)) === 0
             ) {
                 textTemp = textTemp[0];
             } else if (text.length === 2 && !backspaceFlag) {
@@ -90,28 +77,6 @@ const Profile = () => {
 
     return (
         <div className="map">
-            <div className="map__header">
-                <div className="map__logo">
-                    <img src={logoSecond} alt="logo" />
-                </div>
-                <ul className="map__menu">
-                    <li className="map__item">
-                        <Link to="/map" className="map__link">
-                            Карта
-                        </Link>
-                    </li>
-                    <li className="map__item">
-                        <Link to="/profile" className="map__link map__link--active">
-                            Профиль
-                        </Link>
-                    </li>
-                    <li className="map__item">
-                        <button onClick={logOut} className="map__link">
-                            Выйти
-                        </button>
-                    </li>
-                </ul>
-            </div>
             <div className="map__map">
                 <div className="profile">
                     <h2 className="profile__title">Профиль</h2>

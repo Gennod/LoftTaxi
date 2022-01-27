@@ -65,11 +65,13 @@
         font-weight: $bold;
         margin-top: rem(25);
         text-align: left;
+        color: $black;
     }
     &__inputs {
         display: flex;
         flex-direction: column;
         width: rem(355);
+        color: $error;
     }
     &__forgot {
         @include button-reset;
@@ -96,6 +98,7 @@
         border-radius: rem(70);
         text-align: center;
         text-decoration: none;
+        color: $black;
     }
     &__new {
         text-align: center;

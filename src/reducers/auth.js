@@ -3,6 +3,7 @@ import { LOG_OUT, REG, GET_INPUT } from "../actions";
 const initialState = {
     isLoggedIn: false,
     isCardConnected: false,
+    activeLink: "map"
 };
 
 export default function auth(state = initialState, action) {
@@ -13,6 +14,12 @@ export default function auth(state = initialState, action) {
                 isLoggedIn: true,
             };
         }
+        case "CHANGE_CLASS": {
+            return {
+                ...state,
+                activeLink: action.clazz
+            }
+        }
         case LOG_OUT: {
             return {
                 ...state,
@@ -21,7 +28,8 @@ export default function auth(state = initialState, action) {
                 email: "",
                 password: "",
                 addresses: null,
-                routes: null
+                routes: null,
+                activeLink: "map"
             };
         }
         case REG: {

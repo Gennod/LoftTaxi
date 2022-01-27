@@ -2,6 +2,8 @@ export const LOG_OUT = "LOG_OUT";
 export const ERROR = "ERROR";
 export const GET_INPUT = "GET_INPUT";
 
+export const CHANGE_CLASS = (clazz) => ({type: "CHANGE_CLASS", clazz});
+
 export const LOG_IN = (email, password, navigate) => ({
     type: "LOG_IN",
     email,

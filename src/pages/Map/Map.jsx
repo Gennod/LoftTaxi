@@ -1,6 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { GET_ADDRESS, GET_ROUTES } from "../../actions";
+
+import { GET_ADDRESS } from "../../actions/actGetAddress";
+import { GET_ROUTES } from "../../actions/actGetRoutes";
 
 import { drawRoute } from "../../drawRoute";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
@@ -45,9 +47,15 @@ const Map = () => {
                 setZoom(map.current.getZoom().toFixed(2));
             }
         });
+        map.current.on("load", () => {
+            if (store.getState().getRoutes.routes) {
+                const coordinates = store.getState().getRoutes.routes;
+                drawRoute(map.current, coordinates);
+            }
+        });
 
-        if (store.getState().auth.addresses) {
-            const res = store.getState().auth.addresses;
+        if (store.getState().getAddress.addresses) {
+            const res = store.getState().getAddress.addresses;
 
             let arr = res.map((address) => {
                 let objAddress = { name: address, value: address };
@@ -58,7 +66,7 @@ const Map = () => {
             setAdresses(arr);
         }
 
-        if (store.getState().auth.isCardConnected) {
+        if (store.getState().getCard.isCardConnected) {
             setIsCardConnected(true);
         }
 
@@ -83,8 +91,8 @@ const Map = () => {
     };
 
     const drawRoutes = () => {
-        if (store.getState().auth.routes) {
-            const coordinates = store.getState().auth.routes;
+        if (store.getState().getRoutes.routes) {
+            const coordinates = store.getState().getRoutes.routes;
             drawRoute(map.current, coordinates);
         }
     };
@@ -105,7 +113,7 @@ const Map = () => {
                         />
                     ) : null}
                     {adresses ? (
-                        <SelectSearch
+                        <SelectSearch   
                             options={toAdresses}
                             search
                             filterOptions={fuzzySearch}

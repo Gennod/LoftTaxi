@@ -1,7 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import logoSecond from "../../assets/img/loft-logo.svg";
-import { LOG_OUT, CHANGE_CLASS } from "../../actions";
+
+import { LOG_OUT } from "../../actions/actLogOut";
+import { CHANGE_CLASS } from "../../actions/actChangeClass";
 
 import { connect } from "react-redux";
 
@@ -14,7 +16,7 @@ const Header = ({ activeLink }) => {
     const logOut = (e) => {
         e.preventDefault();
 
-        dispatch({ type: LOG_OUT });
+        dispatch(LOG_OUT());
         navigate("/");
     };
 
@@ -60,7 +62,7 @@ const Header = ({ activeLink }) => {
 
 const headerStateToProps = function (state) {
     return {
-        activeLink: state.auth.activeLink,
+        activeLink: state.changeClass.activeLink,
     };
 };
 

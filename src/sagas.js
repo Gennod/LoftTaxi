@@ -1,6 +1,12 @@
 import { takeEvery, call, put } from "redux-saga/effects";
-import { FETCH_CARD, FETCH_ADDRESS, FETCH_LOG_IN, FETCH_ROUTES } from "./actions";
+
 import axios from "axios";
+
+import { FETCH_CARD } from "./actions/actGetCard";
+import { FETCH_ADDRESS } from "./actions/actGetAddress";
+import { FETCH_LOG_IN } from "./actions/actLogIn";
+import { FETCH_ROUTES } from "./actions/actGetRoutes";
+
 
 const getAuth = (email, password) => {
     const result = axios.get(
@@ -67,7 +73,7 @@ export function* handleAuth() {
         const result = yield call(getAuth, email, password);
 
         if (result.data.success) {
-            navigate("/map");
+            localStorage.setItem("isLoggedIn", true);
             yield put(FETCH_LOG_IN());
         }
     });

@@ -2,7 +2,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { GET_INPUT, REG } from "../../actions";
+
+import { GET_INPUT } from "../../actions/actGetInput";
+import { REG } from "../../actions/actGetReg";
 
 import { Input } from "../Input/Input";
 
@@ -26,18 +28,12 @@ export default function RegistrationForm() {
             name: "",
         },
         validationSchema,
-        onSubmit(values) {
+        onSubmit({email, password}) {
             dispatch(
-                REG(values.email, values.password, "NAME", "SURNAME", navigate)
+                REG(email, password, "NAME", "SURNAME", navigate)
             );
 
-            dispatch({
-                type: GET_INPUT,
-                payload: {
-                    email: values.email,
-                    password: values.password,
-                },
-            });
+            dispatch(GET_INPUT(email, password));
         },
     });
     return (

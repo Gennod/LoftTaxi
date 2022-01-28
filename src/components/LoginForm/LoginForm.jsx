@@ -2,7 +2,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { GET_INPUT, LOG_IN } from "../../actions";
+
+import { GET_INPUT } from "../../actions/actGetInput";
+import { LOG_IN } from "../../actions/actLogIn";
+
 import { Input } from "../Input/Input";
 
 
@@ -27,15 +30,9 @@ export default function LoginForm() {
             password: "",
         },
         validationSchema,
-        onSubmit(values) {
-            dispatch({
-                type: GET_INPUT,
-                payload: {
-                    email: values.email,
-                    password: values.password,
-                },
-            });
-            dispatch(LOG_IN(values.email, values.password, navigate));
+        onSubmit({email, password}) {
+            dispatch(GET_INPUT(email, password));
+            dispatch(LOG_IN(email, password, navigate));
         },
     });
     return (

@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 
 import Cards from "react-credit-cards";
 
-import { GET_CARD, ENABLE_ROUTES } from "../../actions";
+import { GET_CARD } from "../../actions/actGetCard";
+import { ENABLE_ROUTES } from "../../actions/actGetRoutes";
 
 import "react-credit-cards/es/styles-compiled.css";
 import "./Profile.scss";

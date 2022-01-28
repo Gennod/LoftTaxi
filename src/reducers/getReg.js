@@ -1,17 +1,16 @@
 const initialState = {
-    isLoggedIn: localStorage.getItem("isLoggedIn") === "false" ? false : true,
+    isLoggedIn: false,
 };
 
-export default function auth(state = initialState, action) {
+export default function getReg(state = initialState, action) {
     switch (action.type) {
-        case "FETCH_LOG_IN": {
+        case "REG": {
             return {
                 ...state,
                 isLoggedIn: true,
             };
         }
         case "LOG_OUT": {
-            localStorage.setItem("isLoggedIn", false);
             return {
                 ...state,
                 isLoggedIn: false

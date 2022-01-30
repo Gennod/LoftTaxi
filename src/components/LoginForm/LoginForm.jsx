@@ -1,28 +1,29 @@
+import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 
 import { GET_INPUT } from "../../actions/actGetInput";
 import { LOG_IN } from "../../actions/actLogIn";
 
 import { Input } from "../Input/Input";
+import Loader from "../Loader/Loader";
 
 
 const validationSchema = Yup.object({
-    email: Yup.string().email("Invalid email").required("Required"),
-    password: Yup.string().required("Please provide a valid password")
-    .max(16),
+    email: Yup.string().email("Введите правильный email адрес!").required("Это поле обязательное!"),
+    password: Yup.string().required("Введите пароль!"),
 });
 
-export default function LoginForm() {
+function LoginForm({ isLoggedIn }) {
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
     let navigate = useNavigate();
 
     const handleForgotButtonClick = (evt) => {
         evt.preventDefault();
     };
-
 
     const { handleSubmit, handleChange, values, errors } = useFormik({
         initialValues: {
@@ -30,9 +31,14 @@ export default function LoginForm() {
             password: "",
         },
         validationSchema,
-        onSubmit({email, password}) {
+        onSubmit({ email, password }) {
             dispatch(GET_INPUT(email, password));
             dispatch(LOG_IN(email, password, navigate));
+            if (!isLoggedIn) {
+                setIsLoading(true);
+            } else {
+                setIsLoading(false);
+            }
         },
     });
     return (
@@ -56,7 +62,7 @@ export default function LoginForm() {
                 type="password"
                 name="password"
                 placeholder="******"
-                labelText="Password:"
+                labelText="Пароль:"
                 labelClassName="login__label"
                 onChange={handleChange}
                 values={values.password}
@@ -69,9 +75,14 @@ export default function LoginForm() {
             >
                 Забыли пароль?
             </button>
-            <button type="submit" className="login__button">
+            { isLoading ? <Loader /> : null }
+            <button disabled={isLoading ? true : false} type="submit" className="login__button">
                 Войти
             </button>
         </form>
     );
 }
+
+export default connect((state) => ({ isLoggedIn: state.auth.isLoggedIn }))(
+    LoginForm
+);

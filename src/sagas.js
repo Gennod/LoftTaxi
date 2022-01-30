@@ -1,12 +1,12 @@
 import { takeEvery, call, put } from "redux-saga/effects";
 
-import axios from "axios";
-
 import { FETCH_CARD } from "./actions/actGetCard";
 import { FETCH_ADDRESS } from "./actions/actGetAddress";
 import { FETCH_LOG_IN } from "./actions/actLogIn";
 import { FETCH_ROUTES } from "./actions/actGetRoutes";
 
+import axios from "axios";
+import { drawRoute } from "./drawRoute";
 
 const getAuth = (email, password) => {
     const result = axios.get(
@@ -73,7 +73,7 @@ export function* handleAuth() {
         const result = yield call(getAuth, email, password);
 
         if (result.data.success) {
-            localStorage.setItem("isLoggedIn", true);
+            navigate("/map");
             yield put(FETCH_LOG_IN());
         }
     });
@@ -97,7 +97,6 @@ export function* handleCard() {
             const result = yield call(getCard, number, name, expiry, cvc);
 
             if (result.data.success) {
-                console.log(result);
                 yield put(FETCH_CARD());
             }
         } catch (error) {
@@ -107,11 +106,14 @@ export function* handleCard() {
 }
 
 export function* handleRoutes() {
-    yield takeEvery("GET_ROUTES", function* ({ fromValue, toValue }) {
+    yield takeEvery("GET_ROUTES", function* ({ fromValue, toValue, map }) {
         try {
             const result = yield call(getRoutes, fromValue, toValue);
 
-            yield put(FETCH_ROUTES(result.data));
+            if (result.data) {
+                yield put(FETCH_ROUTES(result.data));
+                drawRoute(map, result.data);
+            }
         } catch (error) {
             console.log(error);
         }

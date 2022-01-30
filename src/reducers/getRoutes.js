@@ -1,23 +1,28 @@
+const ENABLE_ROUTES = "ENABLE_ROUTES";
+const FETCH_ROUTES = "FETCH_ROUTES";
+const LOG_OUT = "LOG_OUT";
+
 const initialState = {
     isCardConnected: false,
-    routes: null
+    routes: null,
 };
 
 export default function getRoutes(state = initialState, action) {
     switch (action.type) {
-        case "ENABLE_ROUTES": {
+        case ENABLE_ROUTES: {
             return {
                 ...state,
                 isCardConnected: true
             }
         }
-        case "FETCH_ROUTES": {
+        case FETCH_ROUTES: {
+            
             return {
                 ...state,
-                routes: action.payload
+                routes: action.payload,
             }
         }
-        case "LOG_OUT": {
+        case LOG_OUT: {
             return {
                 ...state,
                 isCardConnected: false,

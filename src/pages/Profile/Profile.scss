@@ -36,6 +36,7 @@
         column-gap: rem(60);
         row-gap: rem(60);
         margin-bottom: rem(30);
+        position: relative;
     }
     &__input {
         border: none;
@@ -80,6 +81,14 @@
         text-decoration: none;
         grid-column-start: 2;
         grid-column-end: 3;
+        &[disabled] {
+            background: $gray;
+        }
+    }
+    &__status {
+        position: absolute;
+        bottom: 0;
+        right: rem(15);
     }
 }
 

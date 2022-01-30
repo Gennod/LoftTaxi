@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 
 import Cards from "react-credit-cards";
 
@@ -8,11 +8,14 @@ import { ENABLE_ROUTES } from "../../actions/actGetRoutes";
 
 import "react-credit-cards/es/styles-compiled.css";
 import "./Profile.scss";
+import Loader from "../../components/Loader/Loader";
+import Success from "../../components/Success/Success";
 
-const Profile = () => {
+const Profile = ({ isLoaded, isCardConnectedFromStore }) => {
     const [number, setNumber] = useState("");
     const [name, setName] = useState("");
     const [expiry, setExpiry] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const [cvc, setCvc] = useState("");
     const [focus, setFocus] = useState("");
     const dispatch = useDispatch();
@@ -61,7 +64,7 @@ const Profile = () => {
         e.preventDefault();
 
         setIsCardConnected(true);
-    }
+    };
 
     useEffect(() => {
         let isMounted = true;
@@ -69,8 +72,9 @@ const Profile = () => {
         if (isCardConnected) {
             dispatch(GET_CARD(number, name, expiry, cvc));
             dispatch(ENABLE_ROUTES());
+            setIsLoading(true);
         }
-        
+
         return () => {
             isMounted = false;
         };
@@ -150,9 +154,20 @@ const Profile = () => {
                                 maxLength={3}
                             />
                         </div>
-                        <button type="submit" className="profile__button">
+                        <button
+                            disabled={isCardConnectedFromStore ? true : false}
+                            type="submit"
+                            className="profile__button"
+                        >
                             Сохранить
                         </button>
+                        <div className="profile__status">
+                            {isCardConnectedFromStore ? (
+                                <Success />
+                            ) : isLoading ? (
+                                <Loader />
+                            ) : null}
+                        </div>
                     </form>
                 </div>
             </div>
@@ -160,4 +175,7 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default connect((state) => ({
+    isLoaded: state.getCard.isLoaded,
+    isCardConnectedFromStore: state.getCard.isCardConnected,
+}))(Profile);

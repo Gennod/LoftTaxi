@@ -1,24 +1,32 @@
+import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 
 import { GET_INPUT } from "../../actions/actGetInput";
 import { REG } from "../../actions/actGetReg";
+import { FETCH_LOG_IN } from "../../actions/actLogIn";
 
 import { Input } from "../Input/Input";
+import Loader from "../Loader/Loader";
+import Success from "../Success/Success";
 
 const validationSchema = Yup.object({
-    email: Yup.string().email("Invalid email").required("Required"),
-    password: Yup.string().required("Please provide a valid password").max(16).min(6),
+    email: Yup.string().email("Не правильный email адрес!").required("Это поле обязательное!"),
+    password: Yup.string()
+        .required("Это поле обязательное!")
+        .max(16, "Слишком большой пароль!")
+        .min(6, "Слишком маленький пароль!"),
     name: Yup.string()
-        .min(2, "Too Short!")
-        .max(50, "Too Long!")
-        .required("Required"),
+        .min(2, "Слишком маленькое имя!")
+        .max(50, "Слишком большое имя!")
+        .required("Это поле обязательное!"),
 });
 
-export default function RegistrationForm() {
+function RegistrationForm({ isLoaded }) {
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
     let navigate = useNavigate();
 
     const { handleSubmit, handleChange, values, errors } = useFormik({
@@ -28,12 +36,15 @@ export default function RegistrationForm() {
             name: "",
         },
         validationSchema,
-        onSubmit({email, password}) {
-            dispatch(
-                REG(email, password, "NAME", "SURNAME", navigate)
-            );
-
-            dispatch(GET_INPUT(email, password));
+        onSubmit({ email, password }) {
+            setIsLoading(true);
+            setTimeout(() => {
+                dispatch(REG(email, password, "NAME", "SURNAME", navigate));
+                dispatch(GET_INPUT(email, password));
+            }, 1000);
+            setTimeout(() => {
+                dispatch(FETCH_LOG_IN());
+            }, 3000);
         },
     });
     return (
@@ -74,9 +85,18 @@ export default function RegistrationForm() {
                 values={values.password}
             />
             {errors.password ? errors.password : null}
-            <button type="submit" className="registration__button">
+            {isLoaded ? <Success /> : isLoading ? <Loader /> : null}
+            <button
+                disabled={isLoading ? true : false}
+                type="submit"
+                className="registration__button"
+            >
                 Зарегистрироваться
             </button>
         </form>
     );
 }
+
+export default connect((state) => ({
+    isLoaded: state.getReg.isLoaded,
+}))(RegistrationForm);

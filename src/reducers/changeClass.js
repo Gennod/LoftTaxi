@@ -1,19 +1,26 @@
+const CHANGE_CLASS = "CHANGE_CLASS";
+const LOG_OUT = "LOG_OUT";
+
 const initialState = {
-    activeLink: "map"
+    activeLink: localStorage.getItem("activeLink")
+        ? localStorage.getItem("activeLink")
+        : "map",
 };
 
 export default function changeClass(state = initialState, action) {
     switch (action.type) {
-        case "CHANGE_CLASS": {
+        case CHANGE_CLASS: {
+            localStorage.setItem("activeLink", action.clazz);
             return {
                 ...state,
-                activeLink: action.clazz
-            }
+                activeLink: action.clazz,
+            };
         }
-        case "LOG_OUT": {
+        case LOG_OUT: {
+            localStorage.setItem("activeLink", "map");
             return {
                 ...state,
-                activeLink: "map"
+                activeLink: "map",
             };
         }
         default:

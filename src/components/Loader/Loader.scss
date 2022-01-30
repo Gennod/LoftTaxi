@@ -1,0 +1,61 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+
+@keyframes spinner__inner {
+  0% { transform: rotate(0) }
+  100% { transform: rotate(360deg) }
+}
+.spinner__inner div { box-sizing: border-box!important }
+.spinner__inner > div {
+  position: absolute;
+  width: rem(60);
+  height: rem(60);
+  top: rem(20);
+  left: rem(20);
+  border-radius: 50%;
+  border: rem(8) solid $black;
+  border-color: #fdbf5a transparent #fdbf5a transparent;
+  animation: spinner__inner 0.78125s linear infinite;
+}
+.spinner__inner > div:nth-child(2) { border-color: transparent }
+.spinner__inner > div:nth-child(2) div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+}
+.spinner__inner > div:nth-child(2) div:before, .spinner__inner > div:nth-child(2) div:after { 
+  content: "";
+  display: block;
+  position: absolute;
+  width: rem(8);
+  height: rem(8);
+  top: rem(-8);
+  left: rem(18);
+  background: #fdbf5a;
+  border-radius: 50%;
+  box-shadow: 0 rem(52) 0 0 #fdbf5a;
+}
+.spinner__inner > div:nth-child(2) div:after { 
+  left: rem(-8);
+  top: rem(18);
+  box-shadow: rem(52) 0 0 0 #fdbf5a;
+}
+.spinner {
+  @include push--auto;
+  width: rem(78);
+  height: rem(78);
+  display: inline-block;
+  overflow: hidden;
+  background: #ffffff;
+}
+.spinner__inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(0.78);
+  backface-visibility: hidden;
+  transform-origin: 0 0;
+}
+.spinner__inner div { box-sizing: content-box; }

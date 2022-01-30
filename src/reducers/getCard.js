@@ -1,17 +1,27 @@
+const FETCH_CARD = "FETCH_CARD";
+const LOG_OUT = "LOG_OUT";
+
 const initialState = {
-    isCardConnected: localStorage.getItem("isCardConnected") === "false" ? false : true,
+    isCardConnected:
+        localStorage.getItem("isCardConnected") === "false"
+            ? false
+            : localStorage.getItem("isCardConnected")
+            ? true
+            : false,
+    isLoaded: false,
 };
 
 export default function getCard(state = initialState, action) {
     switch (action.type) {
-        case "FETCH_CARD": {
+        case FETCH_CARD: {
             localStorage.setItem("isCardConnected", true);
             return {
                 ...state,
                 isCardConnected: true,
+                isLoaded: true,
             };
         }
-        case "LOG_OUT": {
+        case LOG_OUT: {
             localStorage.setItem("isCardConnected", false);
             return {
                 ...state,

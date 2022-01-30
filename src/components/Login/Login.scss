@@ -99,6 +99,9 @@
         text-align: center;
         text-decoration: none;
         color: $black;
+        &[disabled] {
+            background: $gray;
+        }
     }
     &__new {
         text-align: center;

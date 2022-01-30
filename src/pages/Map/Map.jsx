@@ -30,6 +30,7 @@ const Map = ({
     const [toDisabled, setToDisabled] = useState(true);
     const [toAdresses, setToAdresses] = useState([{ name: "", value: "" }]);
     const [isCardConnected, setIsCardConnected] = useState(false);
+    const [isMapLoaded, setIsMapLoaded] = useState(false);
 
     useEffect(() => {
         let isMounted = true;
@@ -58,6 +59,7 @@ const Map = ({
                 drawRoute(map.current, coordinates);
             }
             dispatch(GET_ADDRESS());
+            setIsMapLoaded(true);
         });
 
         return () => {
@@ -98,7 +100,7 @@ const Map = ({
                             emptyMessage="Не найдено"
                             placeholder="Откуда"
                             onChange={handleSearchChange}
-                            disabled={isCardConnected ? false : true}
+                            disabled={isCardConnected && isMapLoaded ? false : true}
                         />
                     ) : null}
                     {addressesFromStore ? (

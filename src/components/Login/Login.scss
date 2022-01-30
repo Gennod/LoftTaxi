@@ -125,6 +125,10 @@
             opacity: 0;
         }
     }
+    &__status {
+        text-align: center;
+        font-size: rem($fz-text);
+    }
 }
 
 @media (max-width: 960px) {

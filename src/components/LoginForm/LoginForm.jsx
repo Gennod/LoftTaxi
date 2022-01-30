@@ -9,14 +9,16 @@ import { LOG_IN } from "../../actions/actLogIn";
 
 import { Input } from "../Input/Input";
 import Loader from "../Loader/Loader";
-
+import { Error } from "../Error/Error";
 
 const validationSchema = Yup.object({
-    email: Yup.string().email("Введите правильный email адрес!").required("Это поле обязательное!"),
+    email: Yup.string()
+        .email("Введите правильный email адрес!")
+        .required("Это поле обязательное!"),
     password: Yup.string().required("Введите пароль!"),
 });
 
-function LoginForm({ isLoggedIn }) {
+function LoginForm({ isLoggedIn, isLoggedInFailed }) {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
     let navigate = useNavigate();
@@ -75,14 +77,19 @@ function LoginForm({ isLoggedIn }) {
             >
                 Забыли пароль?
             </button>
-            { isLoading ? <Loader /> : null }
-            <button disabled={isLoading ? true : false} type="submit" className="login__button">
+            <div className="login__status">{isLoading && !isLoggedInFailed ? <Loader /> : isLoggedInFailed ? <Error message={"Неверный email или пароль!"} /> : null}</div>
+            <button
+                disabled={isLoading && !isLoggedInFailed ? true : false}
+                type="submit"
+                className="login__button"
+            >
                 Войти
             </button>
         </form>
     );
 }
 
-export default connect((state) => ({ isLoggedIn: state.auth.isLoggedIn }))(
-    LoginForm
-);
+export default connect((state) => ({
+    isLoggedIn: state.auth.isLoggedIn,
+    isLoggedInFailed: state.auth.isLoggedInFailed,
+}))(LoginForm);

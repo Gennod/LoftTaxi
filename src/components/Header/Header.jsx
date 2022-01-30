@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 
 import "./Header.scss";
 
-const Header = ({ activeLink }) => {
+const Header = ({ activeLink, addressesFromStore }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -51,7 +51,7 @@ const Header = ({ activeLink }) => {
                     </Link>
                 </li>
                 <li className="map__item">
-                    <button onClick={logOut} className="map__link">
+                    <button disabled={ addressesFromStore ? false : true } onClick={logOut} className="map__link">
                         Выйти
                     </button>
                 </li>
@@ -63,6 +63,7 @@ const Header = ({ activeLink }) => {
 const headerStateToProps = function (state) {
     return {
         activeLink: state.changeClass.activeLink,
+        addressesFromStore: state.getAddress.addresses
     };
 };
 

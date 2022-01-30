@@ -5,3 +5,4 @@ export const LOG_IN = (email, password, navigate) => ({
     navigate,
 });
 export const FETCH_LOG_IN = () => ({ type: "FETCH_LOG_IN" });
+export const FETCH_LOG_IN_FAIL = () => ({type: "FETCH_LOG_IN_FAIL"})

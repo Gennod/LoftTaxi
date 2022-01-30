@@ -30,6 +30,10 @@
         &:hover {
             color: $orange;
         }
+        &[disabled] {
+            opacity: 0.5;
+            color: $gray;
+        }
     }
     &__litmap {
         border: none;

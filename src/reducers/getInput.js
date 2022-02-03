@@ -1,5 +1,4 @@
-const GET_INPUT = "GET_INPUT";
-const LOG_OUT = "LOG_OUT";
+import { LOG_OUT, GET_INPUT } from "../utils/constants";
 
 const initialState = {
     email: "",

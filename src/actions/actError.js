@@ -1,3 +1,5 @@
-export const ERROR = () => ({
-    type: "ERROR"
+import { ERROR } from "../utils/constants";
+
+export const error = () => ({
+    type: ERROR
 });

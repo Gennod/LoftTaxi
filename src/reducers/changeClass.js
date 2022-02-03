@@ -1,5 +1,4 @@
-const CHANGE_CLASS = "CHANGE_CLASS";
-const LOG_OUT = "LOG_OUT";
+import { LOG_OUT, CHANGE_CLASS } from "../utils/constants";
 
 const initialState = {
     activeLink: localStorage.getItem("activeLink")

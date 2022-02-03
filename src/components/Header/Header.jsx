@@ -2,8 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import logoSecond from "../../assets/img/loft-logo.svg";
 
-import { LOG_OUT } from "../../actions/actLogOut";
-import { CHANGE_CLASS } from "../../actions/actChangeClass";
+import { logOut as actLogOut } from "../../actions/actLogOut";
+import { changeClass } from "../../actions/actChangeClass";
 
 import { connect } from "react-redux";
 
@@ -16,7 +16,7 @@ const Header = ({ activeLink, addressesFromStore }) => {
     const logOut = (e) => {
         e.preventDefault();
 
-        dispatch(LOG_OUT());
+        dispatch(actLogOut());
         navigate("/");
     };
 
@@ -24,9 +24,9 @@ const Header = ({ activeLink, addressesFromStore }) => {
         const elemId= evt.currentTarget.id;
 
         if (elemId === "mapLink") {
-            dispatch(CHANGE_CLASS("map"));
+            dispatch(changeClass("map"));
         } else {
-            dispatch(CHANGE_CLASS("profile"));
+            dispatch(changeClass("profile"));
         }
     };
 

@@ -1,5 +1,4 @@
-const FETCH_CARD = "FETCH_CARD";
-const LOG_OUT = "LOG_OUT";
+import { LOG_OUT, FETCH_CARD } from "../utils/constants";
 
 const initialState = {
     isCardConnected:

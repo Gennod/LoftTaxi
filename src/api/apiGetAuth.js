@@ -1,12 +1,11 @@
-import axios from "axios";
+import makeRequest from "./apiConfig";
 
 const getAuth = (email, password) => {
-    const result = axios.get(
-        `https://loft-taxi.glitch.me/auth?username=${email}&password=${password}`
-    );
-
-
-    return result;
+    return makeRequest({
+        method: "get",
+        url: "/auth",
+        params: { username: email, password }
+    })
 };
 
 export default getAuth;

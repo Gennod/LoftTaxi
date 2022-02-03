@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 
-import { Input } from "../Input/Input";
-
 import RegistrationForm from "../RegistrationForm/RegistrationForm";
 
 import logo from "../../assets/img/loft-start-logo.svg";

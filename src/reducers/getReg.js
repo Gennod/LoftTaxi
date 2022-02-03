@@ -1,5 +1,4 @@
-const REG = "REG";
-const LOG_OUT = "LOG_OUT";
+import { LOG_OUT, REG } from "../utils/constants";
 
 const initialState = {
     isLoggedIn: false,

@@ -1,5 +1,4 @@
-const FETCH_ADDRESS = "FETCH_ADDRESS";
-const LOG_OUT = "LOG_OUT";
+import { LOG_OUT, FETCH_ADDRESS } from "../utils/constants";
 
 const initialState = {
     addresses: null

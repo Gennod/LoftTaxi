@@ -1,6 +1,4 @@
-const ENABLE_ROUTES = "ENABLE_ROUTES";
-const FETCH_ROUTES = "FETCH_ROUTES";
-const LOG_OUT = "LOG_OUT";
+import { LOG_OUT, ENABLE_ROUTES, FETCH_ROUTES } from "../utils/constants";
 
 const initialState = {
     isCardConnected: false,
@@ -16,7 +14,6 @@ export default function getRoutes(state = initialState, action) {
             }
         }
         case FETCH_ROUTES: {
-            
             return {
                 ...state,
                 routes: action.payload,

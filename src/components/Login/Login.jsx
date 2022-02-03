@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 
 import LoginForm from "../LoginForm/LoginForm";
 
@@ -38,4 +37,4 @@ const Login = () => {
     );
 };
 
-export default connect(null)(Login);
+export default Login;

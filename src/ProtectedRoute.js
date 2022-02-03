@@ -13,14 +13,6 @@ const ProtectedRoute = ({isLoggedIn}) => {
             <>
                 <Header />
                 <Routes>
-                    {/* <Route
-                            path="registration"
-                            element={<Navigate to="/map" />}
-                        />
-                        <Route
-                            path="/"
-                            element={<Navigate to="/map" />}
-                        /> */}
                         <Route
                             path="*"
                             element={<Navigate to="/map" />}

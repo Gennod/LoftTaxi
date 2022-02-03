@@ -1,6 +1,4 @@
-const FETCH_LOG_IN = "FETCH_LOG_IN";
-const FETCH_LOG_IN_FAIL = "FETCH_LOG_IN_FAIL";
-const LOG_OUT = "LOG_OUT";
+import { FETCH_LOG_IN, FETCH_LOG_IN_FAIL, LOG_OUT } from "../utils/constants";
 
 const initialState = {
     isLoggedIn:

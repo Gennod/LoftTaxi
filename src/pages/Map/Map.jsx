@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import { useDispatch, connect } from "react-redux";
 
-import { GET_ADDRESS } from "../../actions/actGetAddress";
-import { GET_ROUTES } from "../../actions/actGetRoutes";
+import { getAddress } from "../../actions/actGetAddress";
+import { getRoutes } from "../../actions/actGetRoutes";
 
 import { drawRoute } from "../../drawRoute";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
@@ -58,7 +58,7 @@ const Map = ({
                 const coordinates = routesFromStore;
                 drawRoute(map.current, coordinates);
             }
-            dispatch(GET_ADDRESS());
+            dispatch(getAddress());
             setIsMapLoaded(true);
         });
 
@@ -82,7 +82,7 @@ const Map = ({
         let fromValue = evt.target[0].value,
             toValue = evt.target[1].value;
 
-        dispatch(GET_ROUTES(fromValue, toValue, map.current));
+        dispatch(getRoutes(fromValue, toValue, map.current));
     };
 
     return (

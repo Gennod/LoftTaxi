@@ -4,9 +4,9 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, connect } from "react-redux";
 
-import { GET_INPUT } from "../../actions/actGetInput";
-import { REG } from "../../actions/actGetReg";
-import { FETCH_LOG_IN } from "../../actions/actLogIn";
+import { getInput } from "../../actions/actGetInput";
+import { reg } from "../../actions/actGetReg";
+import { fetchLogIN } from "../../actions/actLogIn";
 
 import { Input } from "../Input/Input";
 import Loader from "../Loader/Loader";
@@ -39,11 +39,11 @@ function RegistrationForm({ isLoaded }) {
         onSubmit({ email, password }) {
             setIsLoading(true);
             setTimeout(() => {
-                dispatch(REG(email, password, "NAME", "SURNAME", navigate));
-                dispatch(GET_INPUT(email, password));
+                dispatch(reg(email, password, "NAME", "SURNAME", navigate));
+                dispatch(getInput(email, password));
             }, 1000);
             setTimeout(() => {
-                dispatch(FETCH_LOG_IN());
+                dispatch(fetchLogIN());
             }, 3000);
         },
     });

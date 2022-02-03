@@ -1,19 +1,21 @@
 import { takeEvery, call, put } from "redux-saga/effects";
 import getAuth from "../api/apiGetAuth";
 
-import { FETCH_LOG_IN, FETCH_LOG_IN_FAIL } from "../actions/actLogIn";
+import { LOG_IN } from "../utils/constants";
+
+import { fetchLogIN, fetchLogInFail } from "../actions/actLogIn";
 
 export default function* handleAuth() {
-    yield takeEvery("LOG_IN", function* ({ email, password, navigate }) {
+    yield takeEvery(LOG_IN, function* ({ email, password, navigate }) {
         const result = yield call(getAuth, email, password);
 
-        console.log(result.data);
+        console.log(result);
 
         if (result.data.success) {
             navigate("/map");
-            yield put(FETCH_LOG_IN());
+            yield put(fetchLogIN());
         } else {
-            yield put(FETCH_LOG_IN_FAIL());
+            yield put(fetchLogInFail());
         }
     });
 }

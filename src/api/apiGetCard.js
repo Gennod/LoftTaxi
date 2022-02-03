@@ -1,14 +1,11 @@
-import axios from "axios";
+import makeRequest from "./apiConfig";
 
-function getCard(number, name, expiry, cvc) {
-    let result = axios.post(`https://loft-taxi.glitch.me/card`, {
-        number,
-        name,
-        expiry,
-        cvc,
-    });
-
-    return result;
+function getCard(data) {
+    return makeRequest({
+        method: "post",
+        url: '/card',
+        data
+    })
 }
 
 export default getCard;

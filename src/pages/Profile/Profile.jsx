@@ -3,8 +3,8 @@ import { useDispatch, connect } from "react-redux";
 
 import Cards from "react-credit-cards";
 
-import { GET_CARD } from "../../actions/actGetCard";
-import { ENABLE_ROUTES } from "../../actions/actGetRoutes";
+import { getCard } from "../../actions/actGetCard";
+import { enableRoutes } from "../../actions/actGetRoutes";
 
 import "react-credit-cards/es/styles-compiled.css";
 import "./Profile.scss";
@@ -70,8 +70,8 @@ const Profile = ({ isLoaded, isCardConnectedFromStore }) => {
         let isMounted = true;
 
         if (isCardConnected) {
-            dispatch(GET_CARD(number, name, expiry, cvc));
-            dispatch(ENABLE_ROUTES());
+            dispatch(getCard(number, name, expiry, cvc));
+            dispatch(enableRoutes());
             setIsLoading(true);
         }
 

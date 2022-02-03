@@ -4,8 +4,8 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, connect } from "react-redux";
 
-import { GET_INPUT } from "../../actions/actGetInput";
-import { LOG_IN } from "../../actions/actLogIn";
+import { getInput } from "../../actions/actGetInput";
+import { logIn } from "../../actions/actLogIn";
 
 import { Input } from "../Input/Input";
 import Loader from "../Loader/Loader";
@@ -34,8 +34,8 @@ function LoginForm({ isLoggedIn, isLoggedInFailed }) {
         },
         validationSchema,
         onSubmit({ email, password }) {
-            dispatch(GET_INPUT(email, password));
-            dispatch(LOG_IN(email, password, navigate));
+            dispatch(getInput(email, password));
+            dispatch(logIn(email, password, navigate));
             if (!isLoggedIn) {
                 setIsLoading(true);
             } else {

@@ -1,4 +1,6 @@
-export const CHANGE_CLASS = (clazz) => ({
-    type: "CHANGE_CLASS",
+import { CHANGE_CLASS } from "../utils/constants";
+
+export const changeClass = (clazz) => ({
+    type: CHANGE_CLASS,
     clazz
 });

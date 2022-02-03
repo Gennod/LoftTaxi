@@ -1,11 +1,11 @@
-import axios from "axios";
+import makeRequest from "./apiConfig";
 
 function getRoutes(fromValue, toValue) {
-    let result = axios.get(
-        `https://loft-taxi.glitch.me/route?address1=${fromValue}&address2=${toValue}`
-    );
-
-    return result;
+    return makeRequest({
+        method: "get",
+        url: "/route",
+        params: { address1: fromValue, address2: toValue }
+    })
 }
 
 export default getRoutes;

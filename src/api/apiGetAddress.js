@@ -1,9 +1,10 @@
-import axios from "axios";
+import makeRequest from "./apiConfig";
 
 function getAddress() {
-    const result = axios.get(`https://loft-taxi.glitch.me/addressList`);
-
-    return result;
+    return makeRequest({
+        method: "get",
+        url: "/addressList"
+    })
 }
 
 export default getAddress;

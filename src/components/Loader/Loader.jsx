@@ -1,6 +1,6 @@
 import "./Loader.scss";
 
-const Loader = ({background}) => {
+const Loader = () => {
     return (
         <div className="spinner">
             <div  className="spinner__inner">

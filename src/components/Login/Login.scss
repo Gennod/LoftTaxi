@@ -72,6 +72,7 @@
         flex-direction: column;
         width: rem(355);
         color: $error;
+        position: relative;
     }
     &__forgot {
         @include button-reset;

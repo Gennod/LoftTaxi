@@ -3,6 +3,7 @@ import { useDispatch, connect } from "react-redux";
 
 import { getAddress } from "../../actions/actGetAddress";
 import { getRoutes } from "../../actions/actGetRoutes";
+import { setMap } from "../../actions/actSetMap";
 
 import { drawRoute } from "../../drawRoute";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
@@ -40,6 +41,7 @@ const Map = ({
         if (isCardConnectedFromStore) {
             setIsCardConnected(true);
         }
+
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: "mapbox://styles/mapbox/streets-v11",
@@ -59,8 +61,14 @@ const Map = ({
                 drawRoute(map.current, coordinates);
             }
             dispatch(getAddress());
+            dispatch(setMap("true"));
             setIsMapLoaded(true);
+
         });
+
+        map.current.once("load", () => {
+        });
+
 
         return () => {
             isMounted = false;
@@ -87,9 +95,10 @@ const Map = ({
 
     return (
         <div className="map">
+
+
             <div ref={mapContainer} className="map__map">
                 <form onSubmit={handleRoutes} className="map__order">
-                <div className="map__status">{addressesFromStore ? null : <Loader />}</div>
                     {addressesFromStore ? (
                         <SelectSearch
                             options={
@@ -100,7 +109,9 @@ const Map = ({
                             emptyMessage="Не найдено"
                             placeholder="Откуда"
                             onChange={handleSearchChange}
-                            disabled={isCardConnected && isMapLoaded ? false : true}
+                            disabled={
+                                isCardConnected && isMapLoaded ? false : true
+                            }
                         />
                     ) : null}
                     {addressesFromStore ? (
@@ -133,4 +144,5 @@ export default connect((state) => ({
     isCardConnectedFromStore: state.getCard.isCardConnected,
     routesFromStore: state.getRoutes.routes,
     addressesFromStore: state.getAddress.addresses,
+    isMapLoadedFromStore: state.setMap.isMapLoaded,
 }))(Map);

@@ -85,90 +85,91 @@ const Profile = ({ isLoaded, isCardConnectedFromStore }) => {
             <div className="map__map">
                 <div className="profile">
                     <h2 className="profile__title">Профиль</h2>
-                    <p className="profile__subtitle">
-                        Введите платежные данные
-                    </p>
-                    <form onSubmit={handleCardAccept} className="profile__form">
-                        <div className="profile__about-left">
-                            <label className="profile__label" htmlFor="owner">
-                                Имя владельца
-                            </label>
-                            <input
-                                onChange={(e) => validateName(e.target.value)}
-                                value={name}
-                                onFocus={(e) => setFocus(e.target.name)}
-                                className="profile__input"
-                                id="owner"
-                                type="text"
-                                name="text"
-                                placeholder="Иван Бледнов"
+                    <div className="profile__wrapper">
+                        {isCardConnectedFromStore ? (
+                                    <Success />
+                                ) : isLoading ? (
+                                    <Loader />
+                                ) : null}
+                        <p className="profile__subtitle">
+                            Введите платежные данные
+                        </p>
+                        <form onSubmit={handleCardAccept} className="profile__form">
+
+                            <div className="profile__about-left">
+                                <label className="profile__label" htmlFor="owner">
+                                    Имя владельца
+                                </label>
+                                <input
+                                    onChange={(e) => validateName(e.target.value)}
+                                    value={name}
+                                    onFocus={(e) => setFocus(e.target.name)}
+                                    className="profile__input"
+                                    id="owner"
+                                    type="text"
+                                    name="text"
+                                    placeholder="Иван Бледнов"
+                                />
+                                <label className="profile__label" htmlFor="num">
+                                    Номер карты
+                                </label>
+                                <input
+                                    onChange={(e) => onNumInput(e)}
+                                    value={number}
+                                    onFocus={(e) => setFocus(e.target.name)}
+                                    className="profile__input"
+                                    id="num"
+                                    type="text"
+                                    name="num"
+                                    placeholder="0000 0000 0000 0000"
+                                />
+                            </div>
+                            <Cards
+                                number={number}
+                                name={name}
+                                expiry={expiry}
+                                cvc={cvc}
+                                focused={focus}
                             />
-                            <label className="profile__label" htmlFor="num">
-                                Номер карты
-                            </label>
-                            <input
-                                onChange={(e) => onNumInput(e)}
-                                value={number}
-                                onFocus={(e) => setFocus(e.target.name)}
-                                className="profile__input"
-                                id="num"
-                                type="text"
-                                name="num"
-                                placeholder="0000 0000 0000 0000"
-                            />
-                        </div>
-                        <Cards
-                            number={number}
-                            name={name}
-                            expiry={expiry}
-                            cvc={cvc}
-                            focused={focus}
-                        />
-                        <div className="profile__about-right">
-                            <label className="profile__label" htmlFor="date">
-                                MM/YY{" "}
-                            </label>
-                            <input
-                                onChange={(e) => validateExpiry(e.target.value)}
-                                value={expiry}
-                                onFocus={(e) => setFocus(e.target.name)}
-                                className="profile__input"
-                                id="date"
-                                type="text"
-                                name="date"
-                                placeholder="00/00"
-                                maxLength={5}
-                            />
-                            <label className="profile__label" htmlFor="cvc">
-                                CVC
-                            </label>
-                            <input
-                                onChange={(e) => setCvc(e.target.value)}
-                                value={cvc}
-                                onFocus={(e) => setFocus(e.target.name)}
-                                className="profile__input"
-                                id="cvc"
-                                type="text"
-                                name="cvc"
-                                placeholder="000"
-                                maxLength={3}
-                            />
-                        </div>
-                        <button
-                            disabled={isCardConnectedFromStore ? true : false}
-                            type="submit"
-                            className="profile__button"
-                        >
-                            Сохранить
-                        </button>
-                        <div className="profile__status">
-                            {isCardConnectedFromStore ? (
-                                <Success />
-                            ) : isLoading ? (
-                                <Loader />
-                            ) : null}
-                        </div>
-                    </form>
+                            <div className="profile__about-right">
+                                <label className="profile__label" htmlFor="date">
+                                    MM/YY{" "}
+                                </label>
+                                <input
+                                    onChange={(e) => validateExpiry(e.target.value)}
+                                    value={expiry}
+                                    onFocus={(e) => setFocus(e.target.name)}
+                                    className="profile__input"
+                                    id="date"
+                                    type="text"
+                                    name="date"
+                                    placeholder="00/00"
+                                    maxLength={5}
+                                />
+                                <label className="profile__label" htmlFor="cvc">
+                                    CVC
+                                </label>
+                                <input
+                                    onChange={(e) => setCvc(e.target.value)}
+                                    value={cvc}
+                                    onFocus={(e) => setFocus(e.target.name)}
+                                    className="profile__input"
+                                    id="cvc"
+                                    type="text"
+                                    name="cvc"
+                                    placeholder="000"
+                                    maxLength={3}
+                                />
+                            </div>
+                            <button
+                                disabled={isCardConnectedFromStore ? true : false}
+                                type="submit"
+                                className="profile__button"
+                            >
+                                Сохранить
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

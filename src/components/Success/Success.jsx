@@ -2,7 +2,7 @@ import "./Success.scss";
 
 const Success = () => {
     return (
-        <>
+        <div className="sub">
             <div className="success-checkmark">
                 <div className="check-icon">
                     <span className="icon-line line-tip"></span>
@@ -11,7 +11,7 @@ const Success = () => {
                     <div className="icon-fix"></div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

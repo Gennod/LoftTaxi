@@ -41,6 +41,7 @@
         flex-direction: column;
         width: 100%;
         color: $error;
+        position: relative;
     }
     &__button {
         @include button-reset;

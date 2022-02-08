@@ -4,6 +4,7 @@ import logoSecond from "../../assets/img/loft-logo.svg";
 
 import { logOut as actLogOut } from "../../actions/actLogOut";
 import { changeClass } from "../../actions/actChangeClass";
+import { setMap } from "../../actions/actSetMap";
 
 import { connect } from "react-redux";
 
@@ -25,6 +26,7 @@ const Header = ({ activeLink, addressesFromStore }) => {
 
         if (elemId === "mapLink") {
             dispatch(changeClass("map"));
+            dispatch(setMap("false"));
         } else {
             dispatch(changeClass("profile"));
         }

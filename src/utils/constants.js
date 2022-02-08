@@ -13,4 +13,5 @@ export const CHANGE_CLASS = "CHANGE_CLASS",
     LOG_IN = "LOG_IN",
     FETCH_LOG_IN = "FETCH_LOG_IN",
     FETCH_LOG_IN_FAIL = "FETCH_LOG_IN_FAIL",
-    LOG_OUT = "LOG_OUT";
+    LOG_OUT = "LOG_OUT",
+    SET_MAP = "SET_MAP";

@@ -1,6 +1,7 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
 
+
 .success-checkmark {
     width: rem(80);
     height: rem(80);
@@ -13,7 +14,6 @@
         border-radius: 50%;
         box-sizing: content-box;
         border: rem(4) solid $green;
-
         &::before {
             top: rem(3);
             left: rem(-2);
@@ -36,7 +36,7 @@
             content: "";
             height: rem(100);
             position: absolute;
-            background: #ffffff;
+            background: none;
             transform: rotate(-45deg);
         }
 
@@ -85,7 +85,7 @@
             height: rem(85);
             position: absolute;
             transform: rotate(-45deg);
-            background-color: #ffffff;
+            background-color: none;
         }
     }
 }

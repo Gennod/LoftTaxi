@@ -8,6 +8,7 @@ import getInputReducer from "./getInput";
 import getRegReducer from "./getReg";
 import getRoutesReducer from "./getRoutes";
 import getAddressReducer from "./getAddress";
+import setMap from "./setMap";
 
 export default combineReducers({
     auth: authReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     getInput: getInputReducer,
     getReg: getRegReducer,
     getRoutes: getRoutesReducer,
-    getAddress: getAddressReducer
+    getAddress: getAddressReducer,
+    setMap: setMap
 });

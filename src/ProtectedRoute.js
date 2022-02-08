@@ -1,16 +1,16 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import Login from "./components/Login/Login";
+import { Navigate, Route, Routes, Outlet } from "react-router-dom";
 import { connect } from "react-redux";
 import Header from "./components/Header/Header";
-import Registration from "./components/Registration/Registration";
 import Profile from "./pages/Profile/Profile";
 import Map from "./pages/Map/Map";
+import Loader from "./components/Loader/Loader";
 
-// const ProtectedRoute = (props) => (props.isLoggedIn ? <Outlet /> : <Login />);
-const ProtectedRoute = ({isLoggedIn}) => {
+const ProtectedRoute = ({isLoggedIn, addressesFromStore, isMapLoadedFromStore}) => {
+    console.log(isMapLoadedFromStore);
     if (isLoggedIn) {
         return (
             <>
+                { addressesFromStore || isMapLoadedFromStore ? null : <Loader  /> }
                 <Header />
                 <Routes>
                         <Route
@@ -26,28 +26,15 @@ const ProtectedRoute = ({isLoggedIn}) => {
             </>
         )
     } else {
-        return (
-            <>
-                <Routes>
-                        <Route
-                            path="*"
-                            element={<Navigate to="/" />}
-                        />
-                        <Route
-                            path="/"
-                            element={<Login />}
-                        />
-                        <Route path="/registration" element={<Registration />} />
-                </Routes>
-                
-            </>
-        )
+        return <Outlet />
     }
 }
 
 const mapStateToProps = function (state) {
     return {
         isLoggedIn: state.auth.isLoggedIn,
+        addressesFromStore: state.getAddress.addresses,
+        isMapLoadedFromStore: state.setMap.isMapLoaded,
     };
 };
 

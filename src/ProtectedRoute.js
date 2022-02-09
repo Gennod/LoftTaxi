@@ -5,12 +5,11 @@ import Profile from "./pages/Profile/Profile";
 import Map from "./pages/Map/Map";
 import Loader from "./components/Loader/Loader";
 
-const ProtectedRoute = ({isLoggedIn, addressesFromStore, isMapLoadedFromStore}) => {
-    console.log(isMapLoadedFromStore);
+const ProtectedRoute = ({isLoggedIn, addressesFromStore}) => {
     if (isLoggedIn) {
         return (
             <>
-                { addressesFromStore || isMapLoadedFromStore ? null : <Loader  /> }
+                { addressesFromStore ? null : <Loader  /> }
                 <Header />
                 <Routes>
                         <Route
@@ -18,7 +17,7 @@ const ProtectedRoute = ({isLoggedIn, addressesFromStore, isMapLoadedFromStore}) 
                             element={<Navigate to="/map" />}
                         />
                         <Route
-                            path="map"
+                            path="/map"
                             element={<Map />}
                         />
                         <Route path="/profile" element={<Profile />} />
@@ -33,8 +32,7 @@ const ProtectedRoute = ({isLoggedIn, addressesFromStore, isMapLoadedFromStore}) 
 const mapStateToProps = function (state) {
     return {
         isLoggedIn: state.auth.isLoggedIn,
-        addressesFromStore: state.getAddress.addresses,
-        isMapLoadedFromStore: state.setMap.isMapLoaded,
+        addressesFromStore: state.getAddress.addresses
     };
 };
 

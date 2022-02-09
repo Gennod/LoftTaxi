@@ -21,6 +21,7 @@ const Map = ({
     isCardConnectedFromStore,
     routesFromStore,
     addressesFromStore,
+    activeLinkFromStore,
 }) => {
     const dispatch = useDispatch();
     const mapContainer = useRef(null);
@@ -35,6 +36,7 @@ const Map = ({
 
     useEffect(() => {
         let isMounted = true;
+
         if (map.current) {
             return;
         }
@@ -60,15 +62,12 @@ const Map = ({
                 const coordinates = routesFromStore;
                 drawRoute(map.current, coordinates);
             }
-            dispatch(getAddress());
-            dispatch(setMap("true"));
+            if (isMounted) {
+                dispatch(getAddress());
+                dispatch(setMap("true"));
+            }
             setIsMapLoaded(true);
-
         });
-
-        map.current.once("load", () => {
-        });
-
 
         return () => {
             isMounted = false;
@@ -93,10 +92,9 @@ const Map = ({
         dispatch(getRoutes(fromValue, toValue, map.current));
     };
 
+
     return (
         <div className="map">
-
-
             <div ref={mapContainer} className="map__map">
                 <form onSubmit={handleRoutes} className="map__order">
                     {addressesFromStore ? (
@@ -145,4 +143,5 @@ export default connect((state) => ({
     routesFromStore: state.getRoutes.routes,
     addressesFromStore: state.getAddress.addresses,
     isMapLoadedFromStore: state.setMap.isMapLoaded,
+    activeLinkFromStore: state.changeClass.activeLink,
 }))(Map);

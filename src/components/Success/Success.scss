@@ -2,6 +2,15 @@
 @import "../../styles/mixins";
 
 
+.success {
+    &__btn {
+        position: absolute;
+        left: 50%;
+        bottom: -100%;
+        transform: translateX(-50%);
+    }
+}
+
 .success-checkmark {
     width: rem(80);
     height: rem(80);

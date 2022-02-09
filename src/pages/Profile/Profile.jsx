@@ -87,7 +87,7 @@ const Profile = ({ isLoaded, isCardConnectedFromStore }) => {
                     <h2 className="profile__title">Профиль</h2>
                     <div className="profile__wrapper">
                         {isCardConnectedFromStore ? (
-                                    <Success />
+                                    <Success type="profile"/>
                                 ) : isLoading ? (
                                     <Loader />
                                 ) : null}

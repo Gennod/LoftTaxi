@@ -53,7 +53,7 @@ const Header = ({ activeLink, addressesFromStore }) => {
                     </Link>
                 </li>
                 <li className="map__item">
-                    <button disabled={ addressesFromStore ? false : true } onClick={logOut} className="map__link">
+                    <button onClick={logOut} className="map__link">
                         Выйти
                     </button>
                 </li>

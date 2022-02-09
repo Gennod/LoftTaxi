@@ -9,7 +9,6 @@ const ProtectedRoute = ({isLoggedIn, addressesFromStore}) => {
     if (isLoggedIn) {
         return (
             <>
-                { addressesFromStore ? null : <Loader  /> }
                 <Header />
                 <Routes>
                         <Route

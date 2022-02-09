@@ -21,7 +21,6 @@ const Map = ({
     isCardConnectedFromStore,
     routesFromStore,
     addressesFromStore,
-    activeLinkFromStore,
 }) => {
     const dispatch = useDispatch();
     const mapContainer = useRef(null);
@@ -62,11 +61,8 @@ const Map = ({
                 const coordinates = routesFromStore;
                 drawRoute(map.current, coordinates);
             }
-            if (isMounted) {
-                dispatch(getAddress());
-                dispatch(setMap("true"));
-            }
-            setIsMapLoaded(true);
+            dispatch(getAddress());
+            dispatch(setMap("true"));
         });
 
         return () => {
@@ -92,9 +88,11 @@ const Map = ({
         dispatch(getRoutes(fromValue, toValue, map.current));
     };
 
+    console.log(addressesFromStore);
 
     return (
         <div className="map">
+            {addressesFromStore ? null : <Loader />}
             <div ref={mapContainer} className="map__map">
                 <form onSubmit={handleRoutes} className="map__order">
                     {addressesFromStore ? (
@@ -107,9 +105,7 @@ const Map = ({
                             emptyMessage="Не найдено"
                             placeholder="Откуда"
                             onChange={handleSearchChange}
-                            disabled={
-                                isCardConnected && isMapLoaded ? false : true
-                            }
+                            disabled={isCardConnected ? false : true}
                         />
                     ) : null}
                     {addressesFromStore ? (
